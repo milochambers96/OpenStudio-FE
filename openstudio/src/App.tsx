@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Register from "./components/Access/Register";
 import Login from "./components/Access/Login";
+import ArtworkList from "./components/DisplayArtworks/ArtworksList";
 
 import { IMember } from "./interfaces/member";
 
@@ -63,6 +64,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login fetchMember={fetchMember} />} />
+        <Route path="marketplace" element={<ArtworkList />} />
       </Routes>
     </Router>
   );
