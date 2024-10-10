@@ -20,27 +20,24 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
   return (
     <>
       <header>
-        <nav className="navbar has-background-danger-dark is-fixed-top">
+        <nav className="navbar is-fixed-top navbar-color">
           <div className="container">
             <div className="navbar-brand">
-              <Link to="/" className="navbar-item has-text-white-ter">
+              <Link to="/" className="navbar-item navbar-text">
                 Home
               </Link>
-              <Link
-                to="/marketplace"
-                className="navbar-item has-text-white-ter"
-              >
+              <Link to="/marketplace" className="navbar-item navbar-text">
                 Marketplace
               </Link>
 
               {isArtist && (
-                <Link to="/" className="navbar-item has-text-white-ter">
+                <Link to="/" className="navbar-item navbar-text">
                   Studio
                 </Link>
               )}
 
               {isCollector && (
-                <Link to="/" className="navbar-item has-text-white-ter">
+                <Link to="/" className="navbar-item navbar-text">
                   Gallery
                 </Link>
               )}
@@ -48,24 +45,30 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
 
             <div className="navbar-end">
               {!member && (
-                <Link to="/register" className="navbar-item has-text-white-ter">
+                <Link to="/register" className="navbar-item navbar-text">
                   Signup
                 </Link>
               )}
               {!member && (
-                <Link to="/login" className="navbar-item has-text-white-ter">
+                <Link to="/login" className="navbar-item navbar-text">
                   Login
                 </Link>
               )}
 
               {member && (
-                <span className="navbar-item has-text-white-ter">{`Hi ${member.first_name}, welcome back to Open Studio`}</span>
+                <span className="navbar-item navbar-message">
+                  {/* // prettier-ignore  */}
+                  Hi{" "}
+                  <span className="navbar-message-special">
+                    {member.first_name}
+                  </span>
+                  , welcome back to{" "}
+                  <span className="navbar-message-special">Open Studio</span>
+                </span>
               )}
+
               {member && (
-                <button
-                  onClick={logout}
-                  className="button navbar-item is-ghost"
-                >
+                <button onClick={logout} className="navbar-item is-ghost">
                   Logout
                 </button>
               )}
