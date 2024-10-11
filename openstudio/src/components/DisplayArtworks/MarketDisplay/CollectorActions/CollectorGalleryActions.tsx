@@ -85,7 +85,7 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
           Remove from Gallery
         </button>
       ) : (
-        <button className="button is-primary" onClick={addToGallery}>
+        <button className="button is-link" onClick={addToGallery}>
           Add to Gallery
         </button>
       )}

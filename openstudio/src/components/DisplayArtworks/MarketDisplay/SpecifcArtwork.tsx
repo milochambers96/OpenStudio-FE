@@ -8,7 +8,7 @@ import { IArtworkImage } from "../../../interfaces/artworkImage";
 
 import FullPageLoader from "../../UtilityComps/FullPageLoader";
 import ImageCarousel from "./ImageCarousel";
-import ArtworkDetails from "../ArtworkDetails";
+import ArtworkDetails from "./ArtworkDetails";
 
 function SpecifcArtwork({ member }: { member: IMember | null }) {
   const [artwork, setArtwork] = useState<IArtwork | null>(null);

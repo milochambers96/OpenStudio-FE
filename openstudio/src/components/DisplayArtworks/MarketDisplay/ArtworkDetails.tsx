@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-import { IArtwork } from "../../interfaces/artwork";
-import { IMember } from "../../interfaces/member";
+import { IArtwork } from "../../../interfaces/artwork";
+import { IMember } from "../../../interfaces/member";
 
-import Summary from "./MarketDisplay/Summary";
-import Specifications from "./MarketDisplay/Specifications";
-import CollectorGalleryActions from "./MarketDisplay/CollectorActions/CollectorGalleryActions";
+import Summary from "./Summary";
+import Specifications from "./Specifications";
+import CollectorGalleryActions from "./CollectorActions/CollectorGalleryActions";
+import PurchaseRequest from "./CollectorActions/PurchaseRequest";
 
 interface ArtworkDetailsProps {
   artwork: null | IArtwork;
@@ -42,7 +43,10 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
       </div>
       <div>
         {member?.user_type === "collector" && (
-          <CollectorGalleryActions member={member} artwork={artwork} />
+          <div className="is-flex is-justify-content-space-around mt-4">
+            <CollectorGalleryActions member={member} artwork={artwork} />
+            <PurchaseRequest member={member} artwork={artwork} />
+          </div>
         )}
         {!member && <p>Login to purchase work.</p>}
       </div>
