@@ -37,7 +37,7 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
               )}
 
               {isCollector && (
-                <Link to="/" className="navbar-item navbar-text">
+                <Link to="/gallery" className="navbar-item navbar-text">
                   Gallery
                 </Link>
               )}

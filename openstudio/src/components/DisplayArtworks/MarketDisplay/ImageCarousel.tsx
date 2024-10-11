@@ -9,7 +9,7 @@ interface ImageCarouselProps {
 
 function ImageCarousel({ images }: ImageCarouselProps) {
   return (
-    <div className="box">
+    <div>
       <Carousel useKeyboardArrows={true}>
         {images.map((image, index) => (
           <div key={image.id || index} className="slide">

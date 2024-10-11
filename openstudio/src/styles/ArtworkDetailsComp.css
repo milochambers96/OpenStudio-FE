@@ -1,0 +1,19 @@
+.artwork-details-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.artwork-details-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.tab-content {
+  padding-bottom: 1rem;
+}
+
+.artwork-details-actions {
+  margin-top: auto;
+  padding-top: 1rem;
+}

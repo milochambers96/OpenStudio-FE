@@ -36,6 +36,9 @@ function ArtworkList() {
         <FullPageLoader />
       ) : (
         <div className="container mt-5">
+          <h1 className="title text-special has-text-centered is-3">
+            Gallery Artworks
+          </h1>
           <div className="columns is-centered">
             <div className="column is-one-third-desktop is-full-mobile">
               <div className="field">

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import "../../../styles/SpecificArtwork.css";
+
 import { IMember } from "../../../interfaces/member";
 import { IArtwork } from "../../../interfaces/artwork";
 import { IArtworkImage } from "../../../interfaces/artworkImage";
@@ -51,17 +53,21 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
   }
 
   return (
-    <section className="section mt-4">
-      <div className="container">
-        <div className="columns is-multiline is-centered">
+    <section className="section mt-4" style={{ height: "calc(100vh - 52px)" }}>
+      <div className="container mt-6 h-100">
+        <div className="columns is-multiline is-centered h-100">
           {artwork && (
-            <div className="column is-one-half-desktop is-full-mobile">
-              <ImageCarousel images={imagesArray} />
+            <div className="column is-one-half-desktop is-full-mobile h-100">
+              <div className="box h-100 overflow-auto">
+                <ImageCarousel images={imagesArray} />
+              </div>
             </div>
           )}
           {artwork && (
-            <div className="column is-one-half-desktop is-full-mobile">
-              <ArtworkDetails artwork={artwork} member={member} />
+            <div className="column is-one-half-desktop is-full-mobile h-100">
+              <div className="box h-100 overflow-auto">
+                <ArtworkDetails artwork={artwork} member={member} />
+              </div>
             </div>
           )}
         </div>
