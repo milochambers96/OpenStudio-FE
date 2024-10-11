@@ -17,19 +17,8 @@ function Register() {
     collector_address: "",
   });
 
-  const [formErrorData, setFormErrorData] = useState({
-    username: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-    user_type: "",
-    bio: "",
-    website: "",
-    artist_address: "",
-    collector_address: "",
-  });
+  const [formErrors, setFormErrors] = useState<string[]>([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -45,22 +34,26 @@ function Register() {
 
   async function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
+    setFormErrors([]);
+    setSuccessMessage("");
 
     try {
-      await axios.post(
+      const response = await axios.post(
         "http://localhost:8000/members/register/",
         registerFormData
       );
-      navigate("/");
+      setSuccessMessage(response.data.message);
+      setTimeout(() => navigate("/"), 2000);
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          setFormErrorData(error.response.data.errors);
+      if (axios.isAxiosError(error) && error.response) {
+        const { data } = error.response;
+        if (data.errors) {
+          setFormErrors(data.errors);
         } else {
-          console.error("Error with no response:", error.message);
+          setFormErrors(["An unexpected error occurred. Please try again."]);
         }
       } else {
-        console.error("Unexpected error:", error);
+        setFormErrors(["An unexpected error occurred. Please try again."]);
       }
     }
   }
@@ -70,6 +63,19 @@ function Register() {
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-half-desktop is-three-quarters-tablet is-full-mobile">
+            {successMessage && (
+              <div className="notification is-success">{successMessage}</div>
+            )}
+            {formErrors.length > 0 && (
+              <div className="notification is-danger">
+                <p>Please correct the following errors:</p>
+                <ul>
+                  {formErrors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="form">
               <div className="field">
                 <label htmlFor="username" className="label">
@@ -83,11 +89,6 @@ function Register() {
                     value={registerFormData.username}
                     onChange={handleChange}
                   />
-                  {formErrorData.username && (
-                    <small className="has-text-warning">
-                      {formErrorData.username}
-                    </small>
-                  )}
                 </div>
               </div>
 
@@ -103,11 +104,6 @@ function Register() {
                     value={registerFormData.first_name}
                     onChange={handleChange}
                   />
-                  {formErrorData.username && (
-                    <small className="has-text-warning">
-                      {formErrorData.first_name}
-                    </small>
-                  )}
                 </div>
               </div>
 
@@ -123,11 +119,6 @@ function Register() {
                     value={registerFormData.last_name}
                     onChange={handleChange}
                   />
-                  {formErrorData.username && (
-                    <small className="has-text-warning">
-                      {formErrorData.last_name}
-                    </small>
-                  )}
                 </div>
               </div>
 
@@ -143,11 +134,6 @@ function Register() {
                     value={registerFormData.email}
                     onChange={handleChange}
                   />
-                  {formErrorData.email && (
-                    <small className="has-text-warning">
-                      {formErrorData.email}
-                    </small>
-                  )}
                 </div>
               </div>
 
@@ -163,11 +149,6 @@ function Register() {
                     value={registerFormData.password}
                     onChange={handleChange}
                   />
-                  {formErrorData.password && (
-                    <small className="has-text-warning">
-                      {formErrorData.password}
-                    </small>
-                  )}
                 </div>
               </div>
 
@@ -183,11 +164,6 @@ function Register() {
                     value={registerFormData.password_confirmation}
                     onChange={handleChange}
                   />
-                  {formErrorData.passwordConfirmation && (
-                    <small className="has-text-warning">
-                      {formErrorData.passwordConfirmation}
-                    </small>
-                  )}
                 </div>
               </div>
 
@@ -209,18 +185,13 @@ function Register() {
                       <option value="collector">Collector</option>
                     </select>
                   </div>
-                  {formErrorData.user_type && (
-                    <small className="has-text-warning">
-                      {formErrorData.user_type}
-                    </small>
-                  )}
                 </div>
               </div>
 
               {registerFormData.user_type === "artist" && (
                 <>
                   <div className="field">
-                    <label htmlFor="bio" className="bale">
+                    <label htmlFor="bio" className="label">
                       Artist Bio
                     </label>
                     <div className="control">
@@ -229,13 +200,7 @@ function Register() {
                         className="textarea"
                         value={registerFormData.bio}
                         onChange={handleChange}
-                        required
                       />
-                      {formErrorData.bio && (
-                        <small className="has-text-warning">
-                          {formErrorData.bio}
-                        </small>
-                      )}
                     </div>
                   </div>
 
@@ -252,11 +217,6 @@ function Register() {
                         onChange={handleChange}
                       />
                     </div>
-                    {formErrorData.website && (
-                      <small className="has-text-warning">
-                        {formErrorData.website}
-                      </small>
-                    )}
                   </div>
 
                   <div className="field">
@@ -270,14 +230,8 @@ function Register() {
                         name="artist_address"
                         value={registerFormData.artist_address}
                         onChange={handleChange}
-                        required
                       />
                     </div>
-                    {formErrorData.artist_address && (
-                      <small className="has-text-warning">
-                        {formErrorData.artist_address}
-                      </small>
-                    )}
                   </div>
                 </>
               )}
@@ -297,11 +251,6 @@ function Register() {
                         onChange={handleChange}
                       />
                     </div>
-                    {formErrorData.collector_address && (
-                      <small className="has-text-warning">
-                        {formErrorData.collector_address}
-                      </small>
-                    )}
                   </div>
                 </>
               )}

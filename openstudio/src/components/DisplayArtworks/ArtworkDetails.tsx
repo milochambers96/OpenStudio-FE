@@ -1,71 +1,52 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
 
-import { IMember } from "../../interfaces/member";
 import { IArtwork } from "../../interfaces/artwork";
-import { IArtworkImage } from "../../interfaces/artworkImage";
+import { IMember } from "../../interfaces/member";
 
-import FullPageLoader from "../UtilityComps/FullPageLoader";
-import ImageCarousel from "./ImageCarousel";
+import Summary from "./MarektDisplay/Summary";
+import Specifications from "./MarektDisplay/Specifications";
+import CollectorGalleryActions from "./MarektDisplay/CollectorActions/CollectorGalleryActions";
 
-function ArtworkDetails({ member }: { member: IMember | null }) {
-  const [artwork, setArtwork] = useState<IArtwork | null>(null);
-  const [imagesArray, setImagesArray] = useState<IArtworkImage[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+interface ArtworkDetailsProps {
+  artwork: null | IArtwork;
+  member: null | IMember;
+}
 
-  const { id } = useParams<{ id: string }>();
-
-  useEffect(() => {
-    async function fetchArtworkDetails() {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/artworks/${id}/`
-        );
-        setArtwork(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching artwork details:", error);
-        setIsLoading(false);
-      }
-    }
-
-    if (id) {
-      fetchArtworkDetails();
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (artwork) {
-      setImagesArray(artwork?.artworks_images || []);
-    }
-  }, [artwork]);
-
-  if (isLoading) {
-    return <FullPageLoader />;
-  }
-
-  if (!artwork) {
-    return <div>Artwork not found.</div>;
-  }
+function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
+  const [activeTab, setActiveTab] = useState("summary");
 
   return (
-    <section className="section mt-4">
-      <div className="container">
-        <div className="columns is-multiline is-centered">
-          {artwork && (
-            <div className="column is-one-half-desktop is-full-mobile">
-              <ImageCarousel images={imagesArray} />
-            </div>
-          )}
-          {artwork && (
-            <div className="column is-one-half-desktop is-full-mobile">
-              <ImageCarousel images={imagesArray} />
-            </div>
-          )}
-        </div>
+    <div className="box">
+      <div className="mt-2">
+        <p className="subtitle has-text-centered">
+          {artwork?.title} by {artwork?.artist.first_name}{" "}
+          {artwork?.artist.last_name}
+        </p>
       </div>
-    </section>
+      <div className="tabs is-centered mt-4">
+        <ul>
+          <li className={activeTab === "summary" ? "is-active" : ""}>
+            <a onClick={() => setActiveTab("summary")}>Summary</a>
+          </li>
+          <li className={activeTab === "specifications" ? "is-active" : ""}>
+            <a onClick={() => setActiveTab("specifications")}>Specifications</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        {activeTab === "summary" ? (
+          <Summary artwork={artwork} />
+        ) : (
+          <Specifications artwork={artwork} />
+        )}
+      </div>
+      <div>
+        {member?.user_type === "collector" && (
+          <CollectorGalleryActions member={member} artwork={artwork} />
+        )}
+        {!member && <p>Login to purchase work.</p>}
+      </div>
+    </div>
   );
 }
 

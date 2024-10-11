@@ -1,4 +1,4 @@
-import { IArtwork } from "../../interfaces/artwork";
+import { IArtwork } from "../../../interfaces/artwork";
 import { Link } from "react-router-dom";
 
 function ArtworkItems({ id, title, artist, artworks_images }: IArtwork) {

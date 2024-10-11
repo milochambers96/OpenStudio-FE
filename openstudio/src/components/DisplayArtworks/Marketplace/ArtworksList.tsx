@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { IArtwork } from "../../interfaces/artwork";
-import FullPageLoader from "../UtilityComps/FullPageLoader";
+import { IArtwork } from "../../../interfaces/artwork";
+import FullPageLoader from "../../UtilityComps/FullPageLoader";
 import ArtworkItems from "./ArtworkItems";
 
 type Artworks = null | Array<IArtwork>;

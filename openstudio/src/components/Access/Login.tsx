@@ -5,30 +5,28 @@ import { useNavigate, Link } from "react-router-dom";
 import { LoginProps } from "../../interfaces/member";
 
 function Login({ fetchMember }: LoginProps) {
-  const [formData, setformData] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const [formErrorData, setFormErrorData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formErrors, setFormErrors] = useState<string[]>([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
 
-  function handleChange(e: SyntheticEvent) {
-    const targetElement = e.target as HTMLInputElement;
-    const fieldName = targetElement.name;
-    const newFormData = {
-      ...formData,
-      [fieldName]: targetElement.value,
-    };
-    setformData(newFormData);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   }
 
-  async function handleSubmit(e: SyntheticEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setFormErrors([]);
+    setSuccessMessage("");
 
     try {
       const response = await axios.post(
@@ -36,17 +34,24 @@ function Login({ fetchMember }: LoginProps) {
         formData
       );
       localStorage.setItem("token", response.data.token);
+      if ("gallery_id" in response.data) {
+        localStorage.setItem("gallery_id", response.data.gallery_id);
+      }
+      setSuccessMessage(response.data.message);
       fetchMember();
-      navigate("/");
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          setFormErrorData(error.response.data.message);
+      setTimeout(() => navigate("/"), 2000); // Redirect after 2 seconds
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const { data } = error.response;
+        if (data.errors) {
+          setFormErrors(data.errors);
+        } else if (data.message) {
+          setFormErrors([data.message]);
         } else {
-          console.error("Error with no response:", error.message);
+          setFormErrors(["An unexpected error occurred. Please try again."]);
         }
       } else {
-        console.error("Unexpected error:", error);
+        setFormErrors(["An unexpected error occurred. Please try again."]);
       }
     }
   }
@@ -56,6 +61,19 @@ function Login({ fetchMember }: LoginProps) {
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-half-desktop is-three-quarters-tablet is-full-mobile">
+            {successMessage && (
+              <div className="notification is-success">{successMessage}</div>
+            )}
+            {formErrors.length > 0 && (
+              <div className="notification is-danger">
+                <p>Please correct the following errors:</p>
+                <ul>
+                  {formErrors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="form">
               <div className="field">
                 <label htmlFor="email" className="label">
@@ -69,11 +87,6 @@ function Login({ fetchMember }: LoginProps) {
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  {formErrorData.email && (
-                    <small className="has-text-warning">
-                      {formErrorData.email}
-                    </small>
-                  )}
                 </div>
               </div>
               <div className="field">
@@ -88,11 +101,6 @@ function Login({ fetchMember }: LoginProps) {
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  {formErrorData.password && (
-                    <small className="has-text-warning">
-                      {formErrorData.password}
-                    </small>
-                  )}
                 </div>
               </div>
               <div className="field is-flex is-justify-content-center mt-3">

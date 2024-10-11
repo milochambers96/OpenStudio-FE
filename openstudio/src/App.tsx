@@ -8,8 +8,8 @@ import Home from "./components/Home";
 import MemberAccess from "./components/Access/MemberAccess";
 import Register from "./components/Access/Register";
 import Login from "./components/Access/Login";
-import ArtworkList from "./components/DisplayArtworks/ArtworksList";
-import ArtworkDetails from "./components/DisplayArtworks/ArtworkDetails";
+import ArtworkList from "./components/DisplayArtworks/Marketplace/ArtworksList";
+import SpecificArtwork from "./components/DisplayArtworks/MarektDisplay/SpecifcArtwork";
 
 import { IMember } from "./interfaces/member";
 
@@ -73,7 +73,7 @@ function App() {
 
         <Route
           path="/artwork/:id"
-          element={<ArtworkDetails member={member} />}
+          element={<SpecificArtwork member={member} />}
         />
       </Routes>
     </Router>
