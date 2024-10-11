@@ -32,7 +32,7 @@ function Register() {
     setRegisterFormData(newFormData);
   }
 
-  async function handleSubmit(e: SyntheticEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormErrors([]);
     setSuccessMessage("");

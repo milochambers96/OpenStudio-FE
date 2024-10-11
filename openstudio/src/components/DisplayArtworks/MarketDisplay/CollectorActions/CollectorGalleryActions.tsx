@@ -14,13 +14,21 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
 
   const galleryId = Number(localStorage.getItem("gallery_id"));
 
+  const getAuthConfig = () => {
+    const token = localStorage.getItem("token");
+    return {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+  };
+
   useEffect(() => {
     if (!artwork || !galleryId) return;
 
     const checkArtworkInGallery = async () => {
       try {
         const response = await axios.get(
-          `/api/galleries/${galleryId}/artworks/`
+          `http://localhost:8000/galleries/${galleryId}/artworks/`,
+          getAuthConfig()
         );
         const artworkExists = response.data.some(
           (art: IArtwork) => art.id === artwork.id
@@ -38,10 +46,15 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
   const addToGallery = async () => {
     if (!artwork || !member || !galleryId) return;
     try {
-      await axios.post(`/api/galleries/${galleryId}/curate/`, {
-        artwork: artwork.id,
-      });
+      await axios.post(
+        `http://localhost:8000/galleries/${galleryId}/curate/`,
+        {
+          artwork: artwork.id,
+        },
+        getAuthConfig()
+      );
       setIsInGallery(true);
+      console.log("Adding to gallery");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error adding artwork:", error.response?.data);
@@ -51,9 +64,13 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
   const removeFromGallery = async () => {
     if (!artwork || !member || !galleryId) return;
     try {
-      await axios.delete(`/api/galleries/${galleryId}/curate/`, {
-        data: { artwork: artwork.id },
-      });
+      await axios.delete(
+        `http://localhost:8000/galleries/${galleryId}/curate/`,
+        {
+          ...getAuthConfig(),
+          data: { artwork: artwork.id },
+        }
+      );
       setIsInGallery(false);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

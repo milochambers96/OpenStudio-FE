@@ -3,9 +3,9 @@ import { useState } from "react";
 import { IArtwork } from "../../interfaces/artwork";
 import { IMember } from "../../interfaces/member";
 
-import Summary from "./MarektDisplay/Summary";
-import Specifications from "./MarektDisplay/Specifications";
-import CollectorGalleryActions from "./MarektDisplay/CollectorActions/CollectorGalleryActions";
+import Summary from "./MarketDisplay/Summary";
+import Specifications from "./MarketDisplay/Specifications";
+import CollectorGalleryActions from "./MarketDisplay/CollectorActions/CollectorGalleryActions";
 
 interface ArtworkDetailsProps {
   artwork: null | IArtwork;

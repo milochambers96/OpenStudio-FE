@@ -6,10 +6,8 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import MemberAccess from "./components/Access/MemberAccess";
-import Register from "./components/Access/Register";
-import Login from "./components/Access/Login";
 import ArtworkList from "./components/DisplayArtworks/Marketplace/ArtworksList";
-import SpecificArtwork from "./components/DisplayArtworks/MarektDisplay/SpecifcArtwork";
+import SpecificArtwork from "./components/DisplayArtworks/MarketDisplay/SpecifcArtwork";
 
 import { IMember } from "./interfaces/member";
 
@@ -64,7 +62,6 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/register" element={<Register />} /> */}
         <Route
           path="/member-access"
           element={<MemberAccess fetchMember={fetchMember} />}
