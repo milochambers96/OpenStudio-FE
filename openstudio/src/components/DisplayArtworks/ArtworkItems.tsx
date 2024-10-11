@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function ArtworkItems({ id, title, artist, artworks_images }: IArtwork) {
   return (
     <div className="column is-one-quarter-desktop is-one-half-tablet">
-      <Link to={`/artworks/${id}`}>
+      <Link to={`/artwork/${id}`}>
         <div className="card has-text-white-ter">
           <div className="card-header">
             <div className="card-header-title">{title}</div>

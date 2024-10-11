@@ -45,13 +45,8 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
 
             <div className="navbar-end">
               {!member && (
-                <Link to="/register" className="navbar-item navbar-text">
-                  Signup
-                </Link>
-              )}
-              {!member && (
-                <Link to="/login" className="navbar-item navbar-text">
-                  Login
+                <Link to="/member-access" className="navbar-item navbar-text">
+                  Register/Login
                 </Link>
               )}
 

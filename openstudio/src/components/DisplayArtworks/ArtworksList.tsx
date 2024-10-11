@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { IArtwork } from "../../interfaces/artwork";
-import FullPageLoader from "../../FullPageLoader";
+import FullPageLoader from "../UtilityComps/FullPageLoader";
 import ArtworkItems from "./ArtworkItems";
 
 type Artworks = null | Array<IArtwork>;
@@ -37,7 +37,7 @@ function ArtworkList() {
       ) : (
         <div className="container mt-5">
           <div className="columns is-centered">
-            <div className="column is-one-third">
+            <div className="column is-one-third-desktop is-full-mobile">
               <div className="field">
                 <div className="control">
                   <input

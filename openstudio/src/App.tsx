@@ -5,9 +5,11 @@ import axios from "axios";
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
+import MemberAccess from "./components/Access/MemberAccess";
 import Register from "./components/Access/Register";
 import Login from "./components/Access/Login";
 import ArtworkList from "./components/DisplayArtworks/ArtworksList";
+import ArtworkDetails from "./components/DisplayArtworks/ArtworkDetails";
 
 import { IMember } from "./interfaces/member";
 
@@ -62,9 +64,17 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login fetchMember={fetchMember} />} />
-        <Route path="marketplace" element={<ArtworkList />} />
+        {/* <Route path="/register" element={<Register />} /> */}
+        <Route
+          path="/member-access"
+          element={<MemberAccess fetchMember={fetchMember} />}
+        />
+        <Route path="/marketplace" element={<ArtworkList />} />
+
+        <Route
+          path="/artwork/:id"
+          element={<ArtworkDetails member={member} />}
+        />
       </Routes>
     </Router>
   );

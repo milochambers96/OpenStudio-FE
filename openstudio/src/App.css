@@ -3,8 +3,8 @@
 
 body {
   background: linear-gradient(to bottom right, #f8b195, #355c7d);
-  margin: 0; /* Ensure no default margin is causing issues */
-  height: 100vh; /* Ensure the body takes full height */
+  margin: 0;
+  height: 100vh;
 }
 
 .ostudio-bk {
@@ -12,12 +12,8 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center; /* Center vertically */
-  background: linear-gradient(
-    to bottom right,
-    #f8b195,
-    #355c7d
-  ); /* Your background style */
+  align-items: center;
+  background: linear-gradient(to bottom right, #f8b195, #355c7d);
 }
 
 .navbar-color {

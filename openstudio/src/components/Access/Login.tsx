@@ -2,9 +2,7 @@ import { useState, SyntheticEvent } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-interface LoginProps {
-  fetchMember: () => void;
-}
+import { LoginProps } from "../../interfaces/member";
 
 function Login({ fetchMember }: LoginProps) {
   const [formData, setformData] = useState({

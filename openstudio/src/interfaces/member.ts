@@ -11,3 +11,7 @@ export interface IMember {
   artist_address: string;
   collector_address: string;
 }
+
+export interface LoginProps {
+  fetchMember: () => void;
+}
