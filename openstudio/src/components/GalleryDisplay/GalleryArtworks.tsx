@@ -14,10 +14,6 @@ function GalleryArtworks() {
 
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    getArtworks();
-  }, []);
-
   async function getArtworks() {
     setIsLoading(true);
     setError(null);
@@ -46,6 +42,10 @@ function GalleryArtworks() {
       console.error("Error fetching gallery artworks:", error);
     }
   }
+
+  useEffect(() => {
+    getArtworks();
+  }, []);
 
   if (isLoading) return <SectionLoader />;
   if (error) return <p className="has-text-danger">{error}</p>;
