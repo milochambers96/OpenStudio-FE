@@ -80,6 +80,10 @@ function GalleryOrders() {
     }
   }
 
+  async function purchaseArtwork(orderId: number) {
+    return;
+  }
+
   console.log("Order List", galleryOrders);
 
   if (isLoading) return <SectionLoader />;
@@ -97,6 +101,7 @@ function GalleryOrders() {
           orders={galleryOrders}
           userType="buyer"
           onCancel={handleCancel}
+          onPay={purchaseArtwork}
         />
       ) : (
         <p>You haven't sent any purchase requests yet.</p>

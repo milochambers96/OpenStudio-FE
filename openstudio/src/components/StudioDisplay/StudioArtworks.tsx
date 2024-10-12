@@ -1,5 +1,5 @@
 function StudioArtworks() {
-  return <p>Studio Artowrks</p>;
+  return <p>Artwork</p>;
 }
 
 export default StudioArtworks;

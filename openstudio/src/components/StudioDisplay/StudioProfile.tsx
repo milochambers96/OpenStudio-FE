@@ -15,6 +15,10 @@ function StudioProfile({ member }: { member: IMember | null }) {
     ? `${member.first_name} ${getPossessiveForm(member.last_name)} Studio`
     : "Studio";
 
+  const handleUploadSuccess = () => {
+    setActiveTab("artworks");
+  };
+
   return (
     <section className="section">
       <div className="box mt-5">
@@ -39,7 +43,9 @@ function StudioProfile({ member }: { member: IMember | null }) {
         </div>
         <div>
           {activeTab === "artworks" && <StudioArtworks />}
-          {activeTab === "upload" && <StudioArtworkUpload />}
+          {activeTab === "upload" && (
+            <StudioArtworkUpload onUploadSuccess={handleUploadSuccess} />
+          )}
           {activeTab === "orders" && <StudioOrders />}
           {activeTab === "details" && <StudioDetails />}
         </div>

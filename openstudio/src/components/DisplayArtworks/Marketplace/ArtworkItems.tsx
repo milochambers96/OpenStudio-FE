@@ -12,7 +12,7 @@ function ArtworkItems({ id, title, artist, artworks_images }: IArtwork) {
           <div className="card-image">
             <figure className="image fixed-image-container">
               <img
-                src={artworks_images[0].image_url}
+                src={artworks_images[0]?.image_url}
                 alt={`An image of ${title}`}
                 className="fixed-image"
               />

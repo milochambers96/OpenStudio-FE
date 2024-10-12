@@ -6,6 +6,10 @@ import Login from "./Login";
 function MemberAccess({ fetchMember }: LoginProps) {
   const [activeTab, setActiveTab] = useState("login");
 
+  const handleRegisterSuccess = () => {
+    setActiveTab("login");
+  };
+
   return (
     <section className="section mt-5 ">
       <div className="columns is-centered">
@@ -26,7 +30,7 @@ function MemberAccess({ fetchMember }: LoginProps) {
               {activeTab === "login" ? (
                 <Login fetchMember={fetchMember} />
               ) : (
-                <Register />
+                <Register handleRegisterSuccess={handleRegisterSuccess} />
               )}
             </div>
           </div>

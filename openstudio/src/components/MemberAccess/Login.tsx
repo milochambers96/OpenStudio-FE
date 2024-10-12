@@ -11,7 +11,6 @@ function Login({ fetchMember }: LoginProps) {
   });
 
   const [formErrors, setFormErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,7 +25,6 @@ function Login({ fetchMember }: LoginProps) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormErrors([]);
-    setSuccessMessage("");
 
     try {
       const response = await axios.post(
@@ -37,9 +35,9 @@ function Login({ fetchMember }: LoginProps) {
       if ("gallery_id" in response.data) {
         localStorage.setItem("gallery_id", response.data.gallery_id);
       }
-      setSuccessMessage(response.data.message);
       fetchMember();
-      setTimeout(() => navigate("/"), 2000); // Redirect after 2 seconds
+
+      setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const { data } = error.response;
@@ -61,9 +59,6 @@ function Login({ fetchMember }: LoginProps) {
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-half-desktop is-three-quarters-tablet is-full-mobile">
-            {successMessage && (
-              <div className="notification is-success">{successMessage}</div>
-            )}
             {formErrors.length > 0 && (
               <div className="notification is-danger">
                 <p>Please correct the following errors:</p>

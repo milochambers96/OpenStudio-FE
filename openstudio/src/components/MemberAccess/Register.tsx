@@ -1,8 +1,11 @@
 import { useState, SyntheticEvent } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-function Register() {
+interface RegisterProps {
+  handleRegisterSuccess: () => void;
+}
+
+function Register( {handleRegisterSuccess}: RegisterProps) {
   const [registerFormData, setRegisterFormData] = useState({
     username: "",
     first_name: "",
@@ -18,9 +21,6 @@ function Register() {
   });
 
   const [formErrors, setFormErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState("");
-
-  const navigate = useNavigate();
 
   function handleChange(e: SyntheticEvent) {
     const targetElement = e.target as HTMLInputElement;
@@ -35,15 +35,14 @@ function Register() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormErrors([]);
-    setSuccessMessage("");
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const response = await axios.post(
         "http://localhost:8000/members/register/",
         registerFormData
       );
-      setSuccessMessage(response.data.message);
-      setTimeout(() => navigate("/"), 2000);
+      handleRegisterSuccess()
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
         const { data } = error.response;
@@ -63,9 +62,6 @@ function Register() {
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-half-desktop is-three-quarters-tablet is-full-mobile">
-            {successMessage && (
-              <div className="notification is-success">{successMessage}</div>
-            )}
             {formErrors.length > 0 && (
               <div className="notification is-danger">
                 <p>Please correct the following errors:</p>

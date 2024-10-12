@@ -26,3 +26,8 @@ export interface IArtwork {
   weight: number;
   artworks_images: IArtworkImage[];
 }
+
+export type ArtworkFormData = Omit<
+  IArtwork,
+  "id" | "artist" | "artworks_images"
+>;
