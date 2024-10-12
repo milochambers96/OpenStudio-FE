@@ -5,7 +5,7 @@ import axios from "axios";
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import MemberAccess from "./components/Access/MemberAccess";
+import MemberAccess from "./components/MemberAccess/MemberAccess";
 import ArtworkList from "./components/DisplayArtworks/Marketplace/ArtworksList";
 import GalleryProfile from "./components/GalleryDisplay/GalleryProfile";
 
