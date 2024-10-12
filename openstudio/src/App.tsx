@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import MemberAccess from "./components/MemberAccess/MemberAccess";
 import ArtworkList from "./components/DisplayArtworks/Marketplace/ArtworksList";
+import StudioProfile from "./components/StudioDisplay/StudioProfile";
 import GalleryProfile from "./components/GalleryDisplay/GalleryProfile";
 
 import SpecificArtwork from "./components/DisplayArtworks/MarketDisplay/SpecifcArtwork";
@@ -69,6 +70,7 @@ function App() {
           element={<MemberAccess fetchMember={fetchMember} />}
         />
         <Route path="/marketplace" element={<ArtworkList />} />
+        <Route path="/studio" element={<StudioProfile member={member} />} />
         <Route path="/gallery" element={<GalleryProfile member={member} />} />
 
         <Route

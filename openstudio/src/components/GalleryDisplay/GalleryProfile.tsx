@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { IMember } from "../../interfaces/member";
+import { getPossessiveForm } from "../UtilityComps/UtilityFunctions";
 
 import GalleryArtworks from "./GalleryArtworks";
 import GalleryOrders from "./GalleryOrders";
@@ -8,13 +9,6 @@ import GalleryDetails from "./GalleryDetails";
 
 function GalleryProfile({ member }: { member: IMember | null }) {
   const [activeTab, setActiveTab] = useState("artworks");
-
-  const getPossessiveForm = (name: string) => {
-    if (name.endsWith("s")) {
-      return name + "'";
-    }
-    return name + "'s";
-  };
 
   const galleryTitle = member
     ? `${member.first_name} ${getPossessiveForm(member.last_name)} Gallery`
