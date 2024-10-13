@@ -132,10 +132,16 @@ function UpdateArtworkDetails({ memberId }: UpdateArtworkProp) {
   if (!artworkInfo) return <div>Artwork not found.</div>;
 
   return (
-    <div className="section">
-      <div className="box">
-        <h1 className="title">Update Artwork Details</h1>
-        <ArtworkForm initialData={artworkInfo} onSubmit={handleSubmit} />
+    <div className="section mt-5">
+      <div className="container">
+        <div className="columns is-centered">
+          <div className="column is-half">
+            <div className="box">
+              <h1 className="title">Update Artwork Details</h1>
+              <ArtworkForm initialData={artworkInfo} onSubmit={handleSubmit} />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

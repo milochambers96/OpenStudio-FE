@@ -61,7 +61,7 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
       console.log("Artwork creation response:", response.data);
 
       onUploadSuccess();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Upload error:", error);
       setError(
@@ -74,13 +74,20 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
 
   return (
     <div className="section">
-      <h1 className="title">Upload New Artwork</h1>
-      {error && <div className="notification is-danger">{error}</div>}
-      {isLoading ? (
-        <div className="is-loading">Uploading artwork...</div>
-      ) : (
-        <ArtworkForm onSubmit={handleSubmit} />
-      )}
+      <div className="container">
+        <div className="columns is-centered">
+          <div className="column is-half">
+            {" "}
+            <h1 className="title">Upload New Artwork</h1>
+            {error && <div className="notification is-danger">{error}</div>}
+            {isLoading ? (
+              <div className="is-loading">Uploading artwork...</div>
+            ) : (
+              <ArtworkForm onSubmit={handleSubmit} />
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

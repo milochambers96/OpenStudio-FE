@@ -5,6 +5,8 @@ body {
   background: linear-gradient(to bottom right, #f8b195, #355c7d);
   margin: 0;
   height: 100vh;
+  font-family: "Caveat", bold;
+  font-optical-sizing: auto;
 }
 
 .ostudio-bk {
@@ -38,6 +40,24 @@ body {
 }
 
 .text-special {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.box {
+  background-color: #2c3e50ac;
+  color: #ffffff;
+  border-color: #f8b195ac;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.input,
+.textarea {
+  background-color: #2c3e50;
+  border: 2px solid #f8b195;
+  color: #333;
   font-family: "Caveat", cursive;
   font-optical-sizing: auto;
   font-style: normal;
