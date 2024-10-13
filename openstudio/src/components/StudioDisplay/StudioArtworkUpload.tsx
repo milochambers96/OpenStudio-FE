@@ -61,6 +61,7 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
       console.log("Artwork creation response:", response.data);
 
       onUploadSuccess();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Upload error:", error);
       setError(
