@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 import "../../../styles/ArtworkDetailsComp.css";
 
@@ -20,6 +21,20 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
   const [activeTab, setActiveTab] = useState("summary");
 
   const artworkId = artwork?.id;
+
+  const navigate = useNavigate();
+
+  async function deleteArtwork() {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:8000/artworks/${artworkId}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      navigate("/studio");
+    } catch (error: unknown) {
+      console.error("Error deleting artwork", error);
+    }
+  }
 
   return (
     <div className="artwork-details-container">
@@ -57,14 +72,21 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
             {artwork?.isForSale ? (
               <PurchaseRequest member={member} artwork={artwork} />
             ) : (
-              <p>This work is currently not available for purchase.</p>
+              <p>
+                <strong>
+                  This work is currently not available for purchase.
+                </strong>
+              </p>
             )}
           </div>
         )}
         {member?.id === artwork?.artist.id && (
-          <div className="is-flex-is-justify-content-space-around">
+          <div className="is-flex-is-justify-content-space-between">
             <Link to={`/artwork/${artworkId}/edit-details`}>
-              <button className="button is-link">Update Artwork Details</button>
+              <button className="button is-link">Update Artwork</button>
+              <button className="button is-danger" onClick={deleteArtwork}>
+                Delete Artwork
+              </button>
             </Link>
           </div>
         )}
