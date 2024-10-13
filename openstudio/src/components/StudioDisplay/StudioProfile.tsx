@@ -42,7 +42,7 @@ function StudioProfile({ member }: { member: IMember | null }) {
           </ul>
         </div>
         <div>
-          {activeTab === "artworks" && <StudioArtworks />}
+          {activeTab === "artworks" && <StudioArtworks memberId={member?.id} />}
           {activeTab === "upload" && (
             <StudioArtworkUpload onUploadSuccess={handleUploadSuccess} />
           )}
