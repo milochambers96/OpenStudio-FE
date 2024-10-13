@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 import "../../../styles/ArtworkDetailsComp.css";
 
@@ -17,6 +18,8 @@ interface ArtworkDetailsProps {
 
 function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
   const [activeTab, setActiveTab] = useState("summary");
+
+  const artworkId = artwork?.id;
 
   return (
     <div className="artwork-details-container">
@@ -51,10 +54,21 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
         {member?.user_type === "collector" && (
           <div className="is-flex is-justify-content-space-around">
             <CollectorGalleryActions member={member} artwork={artwork} />
-            <PurchaseRequest member={member} artwork={artwork} />
+            {artwork?.isForSale ? (
+              <PurchaseRequest member={member} artwork={artwork} />
+            ) : (
+              <p>This work is currently not available for purchase.</p>
+            )}
           </div>
         )}
-        {!member && <p>Login to purchase work.</p>}
+        {member?.id === artwork?.artist.id && (
+          <div className="is-flex-is-justify-content-space-around">
+            <Link to={`/artwork/${artworkId}/edit-details`}>
+              <button className="button is-link">Update Artwork Details</button>
+            </Link>
+          </div>
+        )}
+        {!member && <p>Login as a collector to purchase work.</p>}
       </div>
     </div>
   );

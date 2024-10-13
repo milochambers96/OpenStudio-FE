@@ -11,6 +11,7 @@ import StudioProfile from "./components/StudioDisplay/StudioProfile";
 import GalleryProfile from "./components/GalleryDisplay/GalleryProfile";
 
 import SpecificArtwork from "./components/DisplayArtworks/MarketDisplay/SpecifcArtwork";
+import UpdateArtworkDetails from "./components/DisplayArtworks/MarketDisplay/ArtworkMakerActions/UpdateArtworkDetails";
 
 import { IMember } from "./interfaces/member";
 
@@ -76,6 +77,10 @@ function App() {
         <Route
           path="/artwork/:id"
           element={<SpecificArtwork member={member} />}
+        />
+        <Route
+          path="/artwork/:artworkId/edit-details"
+          element={<UpdateArtworkDetails memberId={member?.id} />}
         />
       </Routes>
     </Router>

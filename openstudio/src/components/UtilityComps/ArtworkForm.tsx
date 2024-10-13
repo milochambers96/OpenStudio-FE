@@ -1,29 +1,33 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import { ArtworkFormData } from "../../interfaces/artwork";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import {
+  ArtworkFormData,
+  ArtworkFormWithImages,
+} from "../../interfaces/artwork";
 
 type FormErrors = Partial<ArtworkFormData> & { general?: string };
 
 interface ArtworkFormProps {
+  initialData?: ArtworkFormWithImages;
   onSubmit: (
     formData: ArtworkFormData,
     imageFiles: (File | null)[]
   ) => Promise<void>;
 }
 
-const ArtworkForm: React.FC<ArtworkFormProps> = ({ onSubmit }) => {
+function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
   const [formData, setFormData] = useState<ArtworkFormData>({
     title: "",
     description: "",
     year: new Date().getFullYear(),
-    price: 0,
+    price: 1,
     quantity_for_sale: 1,
     isForSale: true,
     medium: "painting",
     material: "",
-    width: 0,
-    depth: 0,
-    height: 0,
-    weight: 0,
+    width: 1,
+    depth: 1,
+    height: 1,
+    weight: 1,
   });
   const [selectedFiles, setSelectedFiles] = useState<(File | null)[]>([
     null,
@@ -33,6 +37,14 @@ const ArtworkForm: React.FC<ArtworkFormProps> = ({ onSubmit }) => {
     null,
   ]);
   const [errors, setErrors] = useState<FormErrors>({});
+
+  useEffect(() => {
+    if (initialData) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { artworks_images, ...formFields } = initialData;
+      setFormData(formFields);
+    }
+  }, [initialData]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -306,6 +318,6 @@ const ArtworkForm: React.FC<ArtworkFormProps> = ({ onSubmit }) => {
       </div>
     </form>
   );
-};
+}
 
 export default ArtworkForm;

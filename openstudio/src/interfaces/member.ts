@@ -1,5 +1,5 @@
 export interface IMember {
-  _id: number;
+  id: number;
   username: string;
   first_name: string;
   last_name: string;

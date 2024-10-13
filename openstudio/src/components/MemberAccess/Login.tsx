@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -14,7 +14,7 @@ function Login({ fetchMember }: LoginProps) {
 
   const navigate = useNavigate();
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -22,7 +22,7 @@ function Login({ fetchMember }: LoginProps) {
     }));
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormErrors([]);
 
