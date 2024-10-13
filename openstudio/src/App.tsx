@@ -56,6 +56,8 @@ function App() {
     }
   }, [member]);
 
+  console.log("The member is:", member);
+
   return (
     <Router>
       <Navbar

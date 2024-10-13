@@ -19,14 +19,16 @@ function Register({ handleRegisterSuccess }: RegisterProps) {
     user_type: "",
     bio: "",
     website: "",
-    artist_address: "",
-    collector_address: "",
     address: "",
+    postcode: "",
   });
 
   const [formErrors, setFormErrors] = useState<string[]>([]);
 
-  const { isValid, errors } = useAddressValidation(registerFormData.address);
+  const { isValid, errors } = useAddressValidation(
+    registerFormData.address,
+    registerFormData.postcode
+  );
 
   function handleChange(e: SyntheticEvent) {
     const targetElement = e.target as HTMLInputElement;
@@ -41,10 +43,14 @@ function Register({ handleRegisterSuccess }: RegisterProps) {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const errors: string[] = [];
+    const newErrors: string[] = [];
 
     if (!isValid) {
-      setFormErrors(errors);
+      newErrors.push(...errors.address, ...errors.postcode);
+    }
+
+    if (newErrors.length > 0) {
+      setFormErrors(newErrors);
       return;
     }
 
@@ -208,24 +214,44 @@ function Register({ handleRegisterSuccess }: RegisterProps) {
                     onChange={handleChange}
                   />
                 </div>
-                {!isValid && registerFormData.address && (
+                {errors.address.length > 0 && (
                   <div className="help is-danger">
-                    {errors.map((error, index) => (
+                    {errors.address.map((error, index) => (
                       <p key={index}>{error}</p>
                     ))}
                   </div>
                 )}
-                {isValid && registerFormData.address && (
-                  <p className="help is-success">Address format looks valid</p>
+              </div>
+
+              <div className="field">
+                <label htmlFor="postcode" className="label">
+                  Postcode:
+                </label>
+                <div className="control">
+                  <input
+                    type="text"
+                    className="input"
+                    name="postcode"
+                    value={registerFormData.postcode}
+                    onChange={handleChange}
+                  />
+                </div>
+                {errors.postcode.length > 0 && (
+                  <div className="help is-danger">
+                    {errors.postcode.map((error, index) => (
+                      <p key={index}>{error}</p>
+                    ))}
+                  </div>
                 )}
               </div>
 
               <div className="notification is-info is-light">
                 <p>
-                  Please enter your full address, including street name, number,
-                  city, and postcode. Separate parts with commas.
+                  Please enter your full address, including street name and
+                  number.
                 </p>
-                <p>Example: 123 Main St, Apartment 4B, London, SE1 7PB</p>
+                <p>Example Address: 123 Main St, Apartment 4B, London</p>
+                <p>Example Postcode: SE1 7PB</p>
               </div>
 
               {registerFormData.user_type === "artist" && (

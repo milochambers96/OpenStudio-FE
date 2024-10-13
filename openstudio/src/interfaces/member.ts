@@ -9,6 +9,7 @@ export interface IMember {
   bio: string;
   website: string;
   address: string;
+  postcode: string;
 }
 
 export interface LoginProps {

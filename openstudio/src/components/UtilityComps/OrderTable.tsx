@@ -39,7 +39,7 @@ function OrdersTable({
               <td>{order.artwork_info.title}</td>
               <td>{order.buyer_info.username}</td>
               <td>{order.seller_info.username}</td>
-              <td>${parseFloat(order.price).toFixed(2)}</td>
+              <td>£{parseFloat(order.price).toFixed(2)}</td>
               <td>{order.status}</td>
               <td>
                 {order.created_at

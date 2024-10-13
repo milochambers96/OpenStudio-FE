@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import { calculateShippingCost } from "../../../UtilityComps/UKShippingCalculator";
 import { IMember } from "../../../../interfaces/member";
 import { IArtwork } from "../../../../interfaces/artwork";
 
@@ -13,15 +14,53 @@ interface CollectorActionProps {
 function PurchaseRequest({ member, artwork }: CollectorActionProps) {
   const [isRequested, setIsRequested] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [shippingCosts, setShippingCosts] = useState<{
+    baseShippingCost: number;
+    insuranceCost: number;
+    totalShippingCost: number;
+    totalPrice: number;
+  } | null>(null);
+  const [step, setStep] = useState<"initial" | "confirm">("initial");
+
+  const calculateShipping = () => {
+    if (!artwork || !member) {
+      setError("Artwork or member information is missing.");
+      return;
+    }
+
+    try {
+      console.log("Artwork:", artwork);
+      console.log("Member:", member);
+
+      const costs = calculateShippingCost({
+        weight: artwork.weight,
+        width: artwork.width,
+        depth: artwork.depth,
+        height: artwork.height,
+        price: artwork.price,
+        fromPostcode: artwork.artist.postcode,
+        toPostcode: member.postcode,
+      });
+
+      console.log("Calculated costs:", costs);
+
+      setShippingCosts(costs);
+      setStep("confirm");
+      setError(null);
+    } catch (error) {
+      console.error("Error in calculateShipping:", error);
+      setError("Failed to calculate shipping costs. Please try again.");
+    }
+  };
 
   const sendPurchaseRequest = async () => {
-    if (!artwork || !member) return;
+    if (!artwork || !member || !shippingCosts) return;
 
     setError(null);
     const url = "http://localhost:8000/orders/create/";
     const data = {
       artwork_id: artwork.id,
-      final_price: artwork.price,
+      final_price: shippingCosts.totalPrice,
     };
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -47,10 +86,6 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
     return <p>Login as a collector to purchase artwork.</p>;
   }
 
-  if (!member || member.user_type !== "collector") {
-    return <p>Login as a collector to purchase artwork.</p>;
-  }
-
   return (
     <div>
       {error && <p className="has-text-danger">{error}</p>}
@@ -61,14 +96,29 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
             View in Gallery
           </Link>
         </div>
-      ) : (
+      ) : step === "initial" ? (
         <button
           className="button is-primary"
-          onClick={sendPurchaseRequest}
+          onClick={calculateShipping}
           disabled={isRequested}
         >
-          Purchase Request
+          Calculate Shipping
         </button>
+      ) : (
+        shippingCosts && (
+          <div>
+            <p>Artwork Price: £{artwork?.price.toFixed(2)}</p>
+            <p>Shipping Cost: £{shippingCosts.totalShippingCost.toFixed(2)}</p>
+            <p>Total Price: £{shippingCosts.totalPrice.toFixed(2)}</p>
+            <button
+              className="button is-primary"
+              onClick={sendPurchaseRequest}
+              disabled={isRequested}
+            >
+              Order Request
+            </button>
+          </div>
+        )
       )}
     </div>
   );
