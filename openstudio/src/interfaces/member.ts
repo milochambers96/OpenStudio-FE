@@ -8,8 +8,7 @@ export interface IMember {
   user_type: "artist" | "collector";
   bio: string;
   website: string;
-  artist_address: string;
-  collector_address: string;
+  address: string;
 }
 
 export interface LoginProps {

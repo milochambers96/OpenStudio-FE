@@ -37,7 +37,7 @@ function Login({ fetchMember }: LoginProps) {
       }
       fetchMember();
 
-      setTimeout(() => navigate("/"), 2000);
+      navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const { data } = error.response;

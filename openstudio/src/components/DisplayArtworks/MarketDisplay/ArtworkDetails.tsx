@@ -69,7 +69,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
         {member?.user_type === "collector" && (
           <div className="is-flex is-justify-content-space-around">
             <CollectorGalleryActions member={member} artwork={artwork} />
-            {artwork?.isForSale ? (
+            {artwork?.is_for_sale ? (
               <PurchaseRequest member={member} artwork={artwork} />
             ) : (
               <p>
@@ -78,6 +78,11 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
                 </strong>
               </p>
             )}
+          </div>
+        )}
+        {member?.id === artwork?.artist.id && !artwork?.is_for_sale && (
+          <div className="note">
+            You have not listed this work for sale on Open Studio's Marketplace.
           </div>
         )}
         {member?.id === artwork?.artist.id && (

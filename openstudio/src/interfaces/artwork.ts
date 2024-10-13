@@ -9,7 +9,7 @@ export interface IArtwork {
   year: number;
   price: number;
   quantity_for_sale: number;
-  isForSale: boolean;
+  is_for_sale: boolean;
   medium:
     | "painting"
     | "sculpture"

@@ -52,6 +52,8 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
     return <div>Artwork not found.</div>;
   }
 
+  console.log("the artwork is", artwork);
+
   return (
     <section className="section mt-4" style={{ height: "calc(100vh - 52px)" }}>
       <div className="container mt-6 h-100">

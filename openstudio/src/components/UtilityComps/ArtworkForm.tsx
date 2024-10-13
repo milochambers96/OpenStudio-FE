@@ -21,7 +21,7 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
     year: new Date().getFullYear(),
     price: 1,
     quantity_for_sale: 1,
-    isForSale: true,
+    is_for_sale: true,
     medium: "painting",
     material: "",
     width: 1,
@@ -53,7 +53,7 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
     setFormData((prev) => ({
       ...prev,
       [name]:
-        type === "select-one" && name === "isForSale"
+        name === "is_for_sale"
           ? value === "yes"
           : type === "number"
           ? value === ""
@@ -61,6 +61,7 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
             : parseFloat(value)
           : value,
     }));
+    console.log(`Field ${name} updated to:`, value); // Debug log
   };
 
   const handleFileChange = (
@@ -77,6 +78,7 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
     setErrors({});
 
     try {
+      console.log("Submitting form data:", formData); // Debug log
       await onSubmit(formData, selectedFiles);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -167,8 +169,8 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
         <div className="control">
           <div className="select">
             <select
-              name="isForSale"
-              value={formData.isForSale ? "yes" : "no"}
+              name="is_for_sale"
+              value={formData.is_for_sale ? "yes" : "no"}
               onChange={handleChange}
             >
               <option value="yes">Yes</option>

@@ -1,11 +1,14 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, FormEvent } from "react";
 import axios from "axios";
+
+// import { useAddressValidation } from "../UtilityComps/addressValidation";
+import { useAddressValidation } from "../UtilityComps/BasicAddressValidation";
 
 interface RegisterProps {
   handleRegisterSuccess: () => void;
 }
 
-function Register( {handleRegisterSuccess}: RegisterProps) {
+function Register({ handleRegisterSuccess }: RegisterProps) {
   const [registerFormData, setRegisterFormData] = useState({
     username: "",
     first_name: "",
@@ -18,30 +21,39 @@ function Register( {handleRegisterSuccess}: RegisterProps) {
     website: "",
     artist_address: "",
     collector_address: "",
+    address: "",
   });
 
   const [formErrors, setFormErrors] = useState<string[]>([]);
 
+  const { isValid, errors } = useAddressValidation(registerFormData.address);
+
   function handleChange(e: SyntheticEvent) {
     const targetElement = e.target as HTMLInputElement;
     const fieldName = targetElement.name;
-    const newFormData = {
-      ...registerFormData,
-      [fieldName]: targetElement.value,
-    };
-    setRegisterFormData(newFormData);
+    const value = targetElement.value;
+
+    setRegisterFormData((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setFormErrors([]);
+    const errors: string[] = [];
+
+    if (!isValid) {
+      setFormErrors(errors);
+      return;
+    }
 
     try {
       await axios.post(
         "http://localhost:8000/members/register/",
         registerFormData
       );
-      handleRegisterSuccess()
+      handleRegisterSuccess();
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
         const { data } = error.response;
@@ -183,6 +195,39 @@ function Register( {handleRegisterSuccess}: RegisterProps) {
                 </div>
               </div>
 
+              <div className="field">
+                <label htmlFor="address" className="label">
+                  Address:
+                </label>
+                <div className="control">
+                  <input
+                    type="text"
+                    className="input"
+                    name="address"
+                    value={registerFormData.address}
+                    onChange={handleChange}
+                  />
+                </div>
+                {!isValid && registerFormData.address && (
+                  <div className="help is-danger">
+                    {errors.map((error, index) => (
+                      <p key={index}>{error}</p>
+                    ))}
+                  </div>
+                )}
+                {isValid && registerFormData.address && (
+                  <p className="help is-success">Address format looks valid</p>
+                )}
+              </div>
+
+              <div className="notification is-info is-light">
+                <p>
+                  Please enter your full address, including street name, number,
+                  city, and postcode. Separate parts with commas.
+                </p>
+                <p>Example: 123 Main St, Apartment 4B, London, SE1 7PB</p>
+              </div>
+
               {registerFormData.user_type === "artist" && (
                 <>
                   <div className="field">
@@ -213,45 +258,13 @@ function Register( {handleRegisterSuccess}: RegisterProps) {
                       />
                     </div>
                   </div>
-
-                  <div className="field">
-                    <label htmlFor="artist_address" className="label">
-                      Address:
-                    </label>
-                    <div className="control">
-                      <input
-                        type="text"
-                        className="input"
-                        name="artist_address"
-                        value={registerFormData.artist_address}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {registerFormData.user_type === "collector" && (
-                <>
-                  <div className="field">
-                    <label htmlFor="collector_address" className="label">
-                      Address:
-                    </label>
-                    <div className="control">
-                      <input
-                        type="text"
-                        className="input"
-                        name="collector_address"
-                        value={registerFormData.collector_address}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
                 </>
               )}
 
               <div className="field is-flex is-justify-content-center mt-4">
-                <button className="button is-link">Register</button>
+                <button className="button is-link" disabled={!isValid}>
+                  Register
+                </button>
               </div>
             </form>
           </div>
