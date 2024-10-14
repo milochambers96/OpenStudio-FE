@@ -30,6 +30,13 @@ function Specifications({ artwork }: SpecProp) {
         <li>
           <strong className="text-special">Weight:</strong> {artwork?.weight}kg
         </li>
+
+        <li>
+          <strong className="text-special">
+            Is the work currently for sale?
+          </strong>{" "}
+          {artwork?.is_for_sale ? "Yes" : "No"}
+        </li>
       </ul>
     </section>
   );

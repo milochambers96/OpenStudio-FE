@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
+import { baseUrl } from "../../config";
+
 import { IOrder } from "../../interfaces/order";
 
 import SectionLoader from "../UtilityComps/SectionLoader";
@@ -20,7 +22,7 @@ function StudioOrders() {
     setError(null);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8000/orders/seller/", {
+      const response = await axios.get(`${baseUrl}/orders/seller/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -30,7 +32,7 @@ function StudioOrders() {
       const markOrdersAsViewed = async () => {
         try {
           await axios.post(
-            "http://localhost:8000/orders/mark-viewed/",
+            `${baseUrl}/orders/mark-viewed/`,
             { user_type: "artist" },
             {
               headers: {
@@ -71,7 +73,7 @@ function StudioOrders() {
       try {
         const token = localStorage.getItem("token");
         await axios.patch(
-          `http://localhost:8000/orders/review/${orderId}/`,
+          `${baseUrl}/orders/review/${orderId}/`,
           { action: "cancel" },
           {
             headers: {
@@ -107,7 +109,7 @@ function StudioOrders() {
       try {
         const token = localStorage.getItem("token");
         await axios.patch(
-          `http://localhost:8000/orders/review/${orderId}`,
+          `${baseUrl}/orders/review/${orderId}`,
           { action: "accept" },
           {
             headers: {
@@ -143,7 +145,7 @@ function StudioOrders() {
       try {
         const token = localStorage.getItem("token");
         await axios.patch(
-          `http://localhost:8000/orders/shipped/${orderId}`,
+          `${baseUrl}/orders/shipped/${orderId}`,
           {},
           {
             headers: {

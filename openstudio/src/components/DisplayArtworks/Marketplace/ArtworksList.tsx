@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import { baseUrl } from "../../../config";
+
 import { IArtwork } from "../../../interfaces/artwork";
+
 import FullPageLoader from "../../UtilityComps/FullPageLoader";
 import ArtworkItems from "./ArtworkItems";
 
@@ -16,7 +19,7 @@ function ArtworkList() {
 
   useEffect(() => {
     const fetchArtworks = async () => {
-      const response = await axios.get("http://localhost:8000/artworks/");
+      const response = await axios.get(`${baseUrl}/artworks/`);
       setArtworks(response.data);
       setIsLoading(false);
     };

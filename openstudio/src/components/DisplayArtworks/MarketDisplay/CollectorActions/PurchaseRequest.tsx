@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import { baseUrl } from "../../../../config";
 import { calculateShippingCost } from "../../../UtilityComps/UKShippingCalculator";
+
 import { IMember } from "../../../../interfaces/member";
 import { IArtwork } from "../../../../interfaces/artwork";
 
@@ -57,7 +59,7 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
     if (!artwork || !member || !shippingCosts) return;
 
     setError(null);
-    const url = "http://localhost:8000/orders/create/";
+    const url = `${baseUrl}/orders/create/`;
     const data = {
       artwork_id: artwork.id,
       final_price: shippingCosts.totalPrice,

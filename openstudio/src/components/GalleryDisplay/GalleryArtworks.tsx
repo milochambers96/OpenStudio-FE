@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import { baseUrl } from "../../config";
+
 import { IArtwork } from "../../interfaces/artwork";
 
 import SectionLoader from "../UtilityComps/SectionLoader";
@@ -19,14 +21,11 @@ function GalleryArtworks() {
     setError(null);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://localhost:8000/galleries/my-gallery/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${baseUrl}/galleries/my-gallery/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setGalleryArtworks(response.data.artworks);
       setIsLoading(false);
     } catch (error) {

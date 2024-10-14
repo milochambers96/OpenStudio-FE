@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import { baseUrl } from "../../config";
+
 import { IArtwork } from "../../interfaces/artwork";
 
 import SectionLoader from "../UtilityComps/SectionLoader";
@@ -23,7 +25,7 @@ function StudioArtworks({ memberId }: StudioArtworkProps) {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get("http://localhost:8000/artworks/");
+        const response = await axios.get(`${baseUrl}/artworks/`);
         const allArtworks = response.data;
         console.log("All work", allArtworks);
         const artsitsWork = allArtworks.filter(

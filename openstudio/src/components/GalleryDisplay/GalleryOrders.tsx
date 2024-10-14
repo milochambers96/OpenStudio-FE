@@ -2,7 +2,10 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import { baseUrl } from "../../config";
+
 import { IOrder } from "../../interfaces/order";
+
 import SectionLoader from "../UtilityComps/SectionLoader";
 import OrdersTable from "../UtilityComps/OrderTable";
 import PaymentForm from "./PaymentForm";
@@ -24,19 +27,16 @@ function GalleryOrders() {
     setError(null);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://localhost:8000/orders/purchase-requests/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${baseUrl}/orders/purchase-requests/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setGalleryOrders(response.data);
       const markOrdersAsViewed = async () => {
         try {
           await axios.post(
-            "http://localhost:8000/orders/mark-viewed/",
+            `${baseUrl}/orders/mark-viewed/`,
             { user_type: "collector" },
             {
               headers: {
@@ -76,7 +76,7 @@ function GalleryOrders() {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:8000/orders/cancel/${orderId}`,
+        `${baseUrl}/orders/cancel/${orderId}`,
         {},
         {
           headers: {
@@ -114,7 +114,7 @@ function GalleryOrders() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.patch(
-        `http://localhost:8000/orders/payment/${orderId}`,
+        `${baseUrl}/orders/payment/${orderId}`,
         paymentDetails,
         {
           headers: {

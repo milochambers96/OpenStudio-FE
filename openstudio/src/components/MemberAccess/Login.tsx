@@ -2,6 +2,8 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
+import { baseUrl } from "../../config";
+
 import { LoginProps } from "../../interfaces/member";
 
 function Login({ fetchMember }: LoginProps) {
@@ -27,10 +29,7 @@ function Login({ fetchMember }: LoginProps) {
     setFormErrors([]);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/members/login/",
-        formData
-      );
+      const response = await axios.post(`${baseUrl}/members/login/`, formData);
       localStorage.setItem("token", response.data.token);
       if ("gallery_id" in response.data) {
         localStorage.setItem("gallery_id", response.data.gallery_id);

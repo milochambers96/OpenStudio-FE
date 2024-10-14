@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import "../../../styles/SpecificArtwork.css";
+import { baseUrl } from "../../../config";
 
 import { IMember } from "../../../interfaces/member";
 import { IArtwork } from "../../../interfaces/artwork";
@@ -23,7 +24,7 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
     async function fetchArtworkDetails() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/artworks/${id}/`
+          `${baseUrl}/artworks/${id}/`
         );
         setArtwork(response.data);
         setIsLoading(false);

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import { baseUrl } from "../../../../config";
+
 import { IMember } from "../../../../interfaces/member";
 import { IArtwork } from "../../../../interfaces/artwork";
 
@@ -27,7 +29,7 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
     const checkArtworkInGallery = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/galleries/${galleryId}/artworks/`,
+          `${baseUrl}/galleries/${galleryId}/artworks/`,
           getAuthConfig()
         );
         const artworkExists = response.data.some(
@@ -47,7 +49,7 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
     if (!artwork || !member || !galleryId) return;
     try {
       await axios.post(
-        `http://localhost:8000/galleries/${galleryId}/curate/`,
+        `${baseUrl}/galleries/${galleryId}/curate/`,
         {
           artwork: artwork.id,
         },
@@ -64,13 +66,10 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
   const removeFromGallery = async () => {
     if (!artwork || !member || !galleryId) return;
     try {
-      await axios.delete(
-        `http://localhost:8000/galleries/${galleryId}/curate/`,
-        {
-          ...getAuthConfig(),
-          data: { artwork: artwork.id },
-        }
-      );
+      await axios.delete(`${baseUrl}/galleries/${galleryId}/curate/`, {
+        ...getAuthConfig(),
+        data: { artwork: artwork.id },
+      });
       setIsInGallery(false);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

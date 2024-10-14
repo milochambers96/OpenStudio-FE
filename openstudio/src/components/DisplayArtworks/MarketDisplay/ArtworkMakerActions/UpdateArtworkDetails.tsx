@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { baseUrl } from "../../../../config";
+
 import {
   ArtworkFormData,
   ArtworkFormWithImages,
@@ -34,14 +36,11 @@ function UpdateArtworkDetails({ memberId }: UpdateArtworkProp) {
       }
 
       try {
-        const response = await axios.get(
-          `http://localhost:8000/artworks/${artworkId}/`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await axios.get(`${baseUrl}/artworks/${artworkId}/`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         setArtworkInfo(response.data);
 
         if (response.data.artist.id !== memberId) {
@@ -78,16 +77,11 @@ function UpdateArtworkDetails({ memberId }: UpdateArtworkProp) {
         newImageUrls = await cloudinaryUpload(validFiles);
       }
 
-      console.log("Current artworkInfo:", artworkInfo);
-      console.log("New image URLs:", newImageUrls);
-
       const existingImageUrls =
         artworkInfo?.artworks_images?.map((img) =>
           typeof img === "string" ? img : img.image_url
         ) ?? [];
       const updatedImageUrls = [...existingImageUrls, ...newImageUrls];
-
-      console.log("Updated image URLs:", updatedImageUrls);
 
       const updatedArtworkData = {
         ...formData,
@@ -95,19 +89,11 @@ function UpdateArtworkDetails({ memberId }: UpdateArtworkProp) {
         artist: memberId,
       };
 
-      console.log("Data being sent to backend:", updatedArtworkData);
-
-      const response = await axios.put(
-        `http://localhost:8000/artworks/${artworkId}/`,
-        updatedArtworkData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      console.log("Response from backend:", response.data);
+      await axios.put(`${baseUrl}/artworks/${artworkId}/`, updatedArtworkData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       navigate("/studio");
     } catch (error) {

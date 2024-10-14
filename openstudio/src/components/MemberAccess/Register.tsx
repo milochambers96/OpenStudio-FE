@@ -1,7 +1,8 @@
 import { useState, SyntheticEvent, FormEvent } from "react";
 import axios from "axios";
 
-// import { useAddressValidation } from "../UtilityComps/addressValidation";
+import { baseUrl } from "../../config";
+
 import { useAddressValidation } from "../UtilityComps/BasicAddressValidation";
 
 interface RegisterProps {
@@ -55,10 +56,7 @@ function Register({ handleRegisterSuccess }: RegisterProps) {
     }
 
     try {
-      await axios.post(
-        "http://localhost:8000/members/register/",
-        registerFormData
-      );
+      await axios.post(`${baseUrl}/members/register/`, registerFormData);
       handleRegisterSuccess();
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {

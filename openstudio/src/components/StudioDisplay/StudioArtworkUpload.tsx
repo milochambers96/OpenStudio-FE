@@ -1,5 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
+
+import { baseUrl } from "../../config";
+
 import ArtworkForm from "../UtilityComps/ArtworkForm";
 import { cloudinaryUpload } from "../UtilityComps/ImageUploader";
 import { ArtworkFormData } from "../../interfaces/artwork";
@@ -49,7 +52,7 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
 
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8000/artworks/create/",
+        `${baseUrl}/artworks/create/`,
         artworkData,
         {
           headers: {

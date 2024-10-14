@@ -30,19 +30,21 @@ const PaymentSuccessMessage: React.FC<PaymentSuccessMessageProps> = ({
 
         <p className="subtitle is-6">Order #{orderId}</p>
         <p>
-          If this was a real purchase, you would get a confirmation email,
-          however this is a student project! You din't buy any art, and you have
-          not been charged!
+          If this were a genuine purchase, you’d be receiving a confirmation
+          email along with a virtual gallery tour. But since this is just a
+          student project, no masterpieces were bought, and your bank account
+          remains untouched!
         </p>
 
         <p className="mt-4">
-          <strong>Estimated delivery:</strong> This will not be arriving, you
-          haven't purchase anything!
+          <strong>Estimated delivery:</strong> Let’s be honest—nothing’s on its
+          way. You didn’t really buy anything! The work will have to remain a
+          figment of your imagination!
         </p>
 
         <div className="is-centered mt-5">
           <button className="button is-light" onClick={onContinueShopping}>
-            Continue Shopping
+            Continue Browsing the Marketplace.
           </button>
         </div>
       </div>

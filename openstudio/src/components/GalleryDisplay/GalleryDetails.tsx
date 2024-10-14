@@ -1,5 +1,5 @@
 function GalleryDetails() {
-  return <p>GalleryDetails</p>;
+  return <p>Gallery Details coming soon...</p>;
 }
 
 export default GalleryDetails;

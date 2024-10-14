@@ -4,6 +4,8 @@ import axios from "axios";
 
 import "../../../styles/ArtworkDetailsComp.css";
 
+import { baseUrl } from "../../../config";
+
 import { IArtwork } from "../../../interfaces/artwork";
 import { IMember } from "../../../interfaces/member";
 
@@ -27,7 +29,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
   async function deleteArtwork() {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:8000/artworks/${artworkId}/`, {
+      await axios.delete(`${baseUrl}/artworks/${artworkId}/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate("/studio");
@@ -82,7 +84,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
         )}
         {member?.id === artwork?.artist.id && !artwork?.is_for_sale && (
           <div className="note">
-            You have not listed this work for sale on Open Studio's Marketplace.
+            You have not listed this work for sale on OpenStudio's Marketplace.
           </div>
         )}
         {member?.id === artwork?.artist.id && (

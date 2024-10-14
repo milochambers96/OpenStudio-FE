@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
+import { baseUrl } from "../config";
+
 function NavbarNotification() {
   const [hasUnviewedOrders, setHasUnviewedOrders] = useState(false);
 
@@ -9,12 +11,9 @@ function NavbarNotification() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const response = await axios.get(
-        "http://localhost:8000/orders/unviewed-orders/",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.get(`${baseUrl}/orders/unviewed-orders/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setHasUnviewedOrders(response.data.has_unviewed_orders);
     } catch (error) {
       console.error("Error checking unviewed orders:", error);

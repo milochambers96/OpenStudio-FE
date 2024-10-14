@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
+import { baseUrl } from "./config";
+
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import MemberAccess from "./components/MemberAccess/MemberAccess";
@@ -23,7 +25,7 @@ function App() {
   async function fetchMember() {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8000/members/user/", {
+      const response = await axios.get(`${baseUrl}/members/user/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMember(response.data);
