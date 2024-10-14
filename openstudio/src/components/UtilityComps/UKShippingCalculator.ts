@@ -143,11 +143,11 @@ const getZone = (postcode: string): number => {
 };
 
 interface ShippingParams {
-  weight: string | number;
-  width: string | number;
-  depth: string | number;
-  height: string | number;
-  price: string | number;
+  weight: number;
+  width: number;
+  depth: number;
+  height: number;
+  price: number;
   fromPostcode: string;
   toPostcode: string;
 }
@@ -168,19 +168,12 @@ export const calculateShippingCost = ({
   fromPostcode,
   toPostcode,
 }: ShippingParams): ShippingCosts => {
-  // Parse string values to numbers
-  const weightNum = parseFloat(weight.toString());
-  const widthNum = parseFloat(width.toString());
-  const depthNum = parseFloat(depth.toString());
-  const heightNum = parseFloat(height.toString());
-  const priceNum = parseFloat(price.toString());
-
-  console.log("Parsed input params:", {
-    weightNum,
-    widthNum,
-    depthNum,
-    heightNum,
-    priceNum,
+  console.log("Input params:", {
+    weight,
+    width,
+    depth,
+    height,
+    price,
     fromPostcode,
     toPostcode,
   });
@@ -190,11 +183,11 @@ export const calculateShippingCost = ({
   const volumeFactor = 0.001;
   const insuranceRate = 0.01;
 
-  const volume = widthNum * depthNum * heightNum;
+  const volume = width * depth * height;
   console.log("Calculated volume:", volume);
 
   const volumeCost = volume * volumeFactor;
-  const weightCost = weightNum * weightFactor;
+  const weightCost = weight * weightFactor;
   console.log("Volume cost:", volumeCost, "Weight cost:", weightCost);
 
   const fromZone = getZone(fromPostcode);
@@ -209,13 +202,13 @@ export const calculateShippingCost = ({
     (baseRate + weightCost + volumeCost) * zoneMultiplier;
   console.log("Base shipping cost:", baseShippingCost);
 
-  const insuranceCost = priceNum * insuranceRate;
+  const insuranceCost = price * insuranceRate;
   console.log("Insurance cost:", insuranceCost);
 
   const totalShippingCost = baseShippingCost + insuranceCost;
   console.log("Total shipping cost:", totalShippingCost);
 
-  const totalPrice = priceNum + totalShippingCost;
+  const totalPrice = price + totalShippingCost;
   console.log("Total price:", totalPrice);
 
   return {

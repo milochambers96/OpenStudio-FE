@@ -54,15 +54,16 @@ function OrdersTable({
                     </button>
                   ) : userType === "buyer" ? (
                     <>
-                      {order.status === "pending" ||
-                        (order.status === "accepted" && onCancel && (
+                      {(order.status === "pending" ||
+                        order.status === "accepted") &&
+                        onCancel && (
                           <button
                             className="button is-danger"
                             onClick={() => onCancel(order.id)}
                           >
                             Cancel
                           </button>
-                        ))}
+                        )}
                       {order.status === "accepted" && onPay && (
                         <button
                           className="button is-success"
@@ -100,7 +101,7 @@ function OrdersTable({
                           className="button is-link"
                           onClick={() => onShip(order.id)}
                         >
-                          Shipped
+                          Ship
                         </button>
                       )}
                     </>

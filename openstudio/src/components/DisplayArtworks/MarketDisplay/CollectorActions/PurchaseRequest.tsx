@@ -102,7 +102,7 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
           onClick={calculateShipping}
           disabled={isRequested}
         >
-          Calculate Shipping
+          Want to buy?
         </button>
       ) : (
         shippingCosts && (

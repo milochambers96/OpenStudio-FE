@@ -26,6 +26,7 @@ function StudioOrders() {
         },
       });
       setStudioOrders(response.data);
+      markOrdersAsViewed();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -38,6 +39,23 @@ function StudioOrders() {
         setError("An unexpected error occurred");
       }
       console.error("Error fetching orders:", error);
+    }
+  }
+
+  async function markOrdersAsViewed() {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(
+        "http://localhost:8000/orders/mark-viewed/",
+        { user_type: "artist" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error marking orders as viewed:", error);
     }
   }
 
@@ -117,11 +135,15 @@ function StudioOrders() {
     setSuccessMessage(null);
     try {
       const token = localStorage.getItem("token");
-      await axios.patch(`http://localhost:8000/orders/shipped/${orderId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.patch(
+        `http://localhost:8000/orders/shipped/${orderId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setSuccessMessage(`Order ${orderId} accepted.`);
       await getOrders();
     } catch (error) {

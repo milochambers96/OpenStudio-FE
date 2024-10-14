@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { IMember } from "../interfaces/member";
+import NavbarNotification from "./NavbarNotifications";
 
 interface NavbarProps {
   member: null | IMember;
@@ -33,12 +34,14 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
               {isArtist && (
                 <Link to="/studio" className="navbar-item navbar-text">
                   Studio
+                  {member && <NavbarNotification />}
                 </Link>
               )}
 
               {isCollector && (
                 <Link to="/gallery" className="navbar-item navbar-text">
                   Gallery
+                  {member && <NavbarNotification />}
                 </Link>
               )}
             </div>

@@ -10,7 +10,8 @@ function Summary({ artwork }: SummaryProp) {
       <p>{artwork?.description}</p>
       <br />
       <p>
-        <strong className="text-special">Price (USD):</strong> {artwork?.price}
+        <strong className="text-special">Price (GBP): </strong> £
+        {artwork?.price}
       </p>
     </section>
   );

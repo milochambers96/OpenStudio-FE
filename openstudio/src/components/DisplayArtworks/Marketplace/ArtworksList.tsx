@@ -11,23 +11,29 @@ function ArtworkList() {
   const [artworks, setArtworks] = useState<Artworks>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  async function getArtworks() {
-    const response = await axios.get("http://localhost:8000/artworks/");
-    setArtworks(response.data);
-    setIsLoading(false);
-  }
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
-    getArtworks();
+    const fetchArtworks = async () => {
+      const response = await axios.get("http://localhost:8000/artworks/");
+      setArtworks(response.data);
+      setIsLoading(false);
+    };
+
+    fetchArtworks();
   }, []);
 
-  useEffect(() => {
-    console.log(artworks);
-  }, [artworks]);
-
-  const filterArtworks = artworks?.filter((artwork) =>
+  const filteredArtworks = artworks?.filter((artwork) =>
     artwork.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = filteredArtworks
+    ? Math.ceil(filteredArtworks.length / itemsPerPage)
+    : 1;
+  const currentArtworks = filteredArtworks?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   return (
@@ -55,10 +61,31 @@ function ArtworkList() {
             </div>
           </div>
           <div className="columns is-multiline">
-            {filterArtworks?.map((artwork) => (
+            {currentArtworks?.map((artwork) => (
               <ArtworkItems {...artwork} key={artwork.id} />
             ))}
           </div>
+
+          <nav
+            className="pagination is-centered"
+            role="navigation"
+            aria-label="pagination"
+          >
+            <ul className="pagination-list">
+              {[...Array(totalPages)].map((_, index) => (
+                <li key={index}>
+                  <a
+                    className={`pagination-link ${
+                      currentPage === index + 1 ? "is-current" : ""
+                    }`}
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       )}
     </section>
