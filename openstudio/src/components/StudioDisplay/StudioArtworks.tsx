@@ -65,7 +65,7 @@ function StudioArtworks({ memberId }: StudioArtworkProps) {
           ))}
         </div>
       ) : (
-        <p>No artworks in your gallery yet.</p>
+        <p>You haven't uploaded any artworks yet.</p>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ function GalleryOrders() {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const navigate = useNavigate();
 
-  async function getOrders() {
+  const getOrders = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -33,7 +33,23 @@ function GalleryOrders() {
         }
       );
       setGalleryOrders(response.data);
-      markOrdersAsViewed();
+      const markOrdersAsViewed = async () => {
+        try {
+          await axios.post(
+            "http://localhost:8000/orders/mark-viewed/",
+            { user_type: "collector" },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        } catch (error) {
+          console.error("Error marking orders as viewed:", error);
+        }
+      };
+
+      await markOrdersAsViewed();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(
@@ -47,28 +63,11 @@ function GalleryOrders() {
     } finally {
       setIsLoading(false);
     }
-  }
-
-  async function markOrdersAsViewed() {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.post(
-        "http://localhost:8000/orders/mark-viewed/",
-        { user_type: "collector" },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error marking orders as viewed:", error);
-    }
-  }
+  }, []);
 
   useEffect(() => {
     getOrders();
-  }, []);
+  }, [getOrders]);
 
   async function handleCancel(orderId: number) {
     setIsLoading(true);
@@ -146,11 +145,6 @@ function GalleryOrders() {
     setPaymentSuccess(false);
   }
 
-  // function handleViewOrder() {
-  //   setSelectedOrderId(null);
-  //   setPaymentSuccess(false);
-  // }
-
   function handleContinueShopping() {
     navigate("/marketplace");
   }
@@ -168,7 +162,6 @@ function GalleryOrders() {
       {paymentSuccess ? (
         <PaymentSuccessMessage
           orderId={selectedOrderId!.toString()}
-          // onViewOrder={handleViewOrder}
           onContinueShopping={handleContinueShopping}
         />
       ) : selectedOrderId ? (

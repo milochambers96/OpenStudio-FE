@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import { IOrder } from "../../interfaces/order";
@@ -15,7 +15,7 @@ function StudioOrders() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  async function getOrders() {
+  const getOrders = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -26,141 +26,150 @@ function StudioOrders() {
         },
       });
       setStudioOrders(response.data);
-      markOrdersAsViewed();
-      setIsLoading(false);
+
+      const markOrdersAsViewed = async () => {
+        try {
+          await axios.post(
+            "http://localhost:8000/orders/mark-viewed/",
+            { user_type: "artist" },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        } catch (error) {
+          console.error("Error marking orders as viewed:", error);
+        }
+      };
+
+      await markOrdersAsViewed();
     } catch (error) {
-      setIsLoading(false);
       if (axios.isAxiosError(error)) {
         setError(
           error.response?.data?.detail ||
-            "An error occured while fetching order requests."
+            "An error occurred while fetching order requests."
         );
       } else {
         setError("An unexpected error occurred");
       }
       console.error("Error fetching orders:", error);
+    } finally {
+      setIsLoading(false);
     }
-  }
-
-  async function markOrdersAsViewed() {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.post(
-        "http://localhost:8000/orders/mark-viewed/",
-        { user_type: "artist" },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error marking orders as viewed:", error);
-    }
-  }
+  }, []);
 
   useEffect(() => {
     getOrders();
-  }, []);
+  }, [getOrders]);
 
-  async function handleCancel(orderId: number) {
-    setIsLoading(true);
-    setError(null);
-    setSuccessMessage(null);
-    try {
-      const token = localStorage.getItem("token");
-      await axios.patch(
-        `http://localhost:8000/orders/review/${orderId}/`,
-        { action: "cancel" },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setSuccessMessage(`Order ${orderId} cancelled`);
-      await getOrders();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError(
-          error.response?.data?.detail ||
-            error.response?.data?.error ||
-            "An error occurred while cancelling the order."
+  const handleCancel = useCallback(
+    async (orderId: number) => {
+      setIsLoading(true);
+      setError(null);
+      setSuccessMessage(null);
+      try {
+        const token = localStorage.getItem("token");
+        await axios.patch(
+          `http://localhost:8000/orders/review/${orderId}/`,
+          { action: "cancel" },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-      } else {
-        setError("An unexpected error occurred");
+        setSuccessMessage(`Order ${orderId} cancelled`);
+        await getOrders();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setError(
+            error.response?.data?.detail ||
+              error.response?.data?.error ||
+              "An error occurred while cancelling the order."
+          );
+        } else {
+          setError("An unexpected error occurred");
+        }
+        console.error("Error cancelling order:", error);
+      } finally {
+        setIsLoading(false);
       }
-      console.error("Error cancelling order:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+    },
+    [getOrders]
+  );
 
-  async function handleAccept(orderId: number) {
-    setIsLoading(true);
-    setError(null);
-    setSuccessMessage(null);
-    try {
-      const token = localStorage.getItem("token");
-      await axios.patch(
-        `http://localhost:8000/orders/review/${orderId}`,
-        { action: "accept" },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setSuccessMessage(`Order ${orderId} accepted.`);
-      await getOrders();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError(
-          error.response?.data?.detail ||
-            error.response?.data?.error ||
-            "An error occurred when attempting to accept the order."
+  const handleAccept = useCallback(
+    async (orderId: number) => {
+      setIsLoading(true);
+      setError(null);
+      setSuccessMessage(null);
+      try {
+        const token = localStorage.getItem("token");
+        await axios.patch(
+          `http://localhost:8000/orders/review/${orderId}`,
+          { action: "accept" },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-      } else {
-        setError("An unexpected error occurred");
+        setSuccessMessage(`Order ${orderId} accepted.`);
+        await getOrders();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setError(
+            error.response?.data?.detail ||
+              error.response?.data?.error ||
+              "An error occurred when attempting to accept the order."
+          );
+        } else {
+          setError("An unexpected error occurred");
+        }
+        console.error("Error accepting order:", error);
+      } finally {
+        setIsLoading(false);
       }
-      console.error("Error accepting order:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+    },
+    [getOrders]
+  );
 
-  async function shipOrder(orderId: number) {
-    setIsLoading(true);
-    setError(null);
-    setSuccessMessage(null);
-    try {
-      const token = localStorage.getItem("token");
-      await axios.patch(
-        `http://localhost:8000/orders/shipped/${orderId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setSuccessMessage(`Order ${orderId} accepted.`);
-      await getOrders();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError(
-          error.response?.data?.detail ||
-            error.response?.data?.error ||
-            "An error occurred when attempting to update shipping status."
+  const shipOrder = useCallback(
+    async (orderId: number) => {
+      setIsLoading(true);
+      setError(null);
+      setSuccessMessage(null);
+      try {
+        const token = localStorage.getItem("token");
+        await axios.patch(
+          `http://localhost:8000/orders/shipped/${orderId}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-      } else {
-        setError("An unexpected error occurred");
+        setSuccessMessage(`Order ${orderId} shipped.`);
+        await getOrders();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setError(
+            error.response?.data?.detail ||
+              error.response?.data?.error ||
+              "An error occurred when attempting to update shipping status."
+          );
+        } else {
+          setError("An unexpected error occurred");
+        }
+        console.error("Error updating shipping status:", error);
+      } finally {
+        setIsLoading(false);
       }
-      console.error("Error updating shipping status:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+    },
+    [getOrders]
+  );
 
   console.log("Order List", studioOrders);
 
@@ -183,7 +192,7 @@ function StudioOrders() {
           onShip={shipOrder}
         />
       ) : (
-        <p>You haven't recieved any purchase requests yet.</p>
+        <p>You haven't received any purchase requests yet.</p>
       )}
     </div>
   );
