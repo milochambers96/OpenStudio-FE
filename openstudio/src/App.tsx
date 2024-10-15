@@ -11,6 +11,7 @@ import MemberAccess from "./components/MemberAccess/MemberAccess";
 import ArtworkList from "./components/DisplayArtworks/Marketplace/ArtworksList";
 import StudioProfile from "./components/StudioDisplay/StudioProfile";
 import GalleryProfile from "./components/GalleryDisplay/GalleryProfile";
+import About from "./components/About";
 
 import SpecificArtwork from "./components/DisplayArtworks/MarketDisplay/SpecifcArtwork";
 import UpdateArtworkDetails from "./components/DisplayArtworks/MarketDisplay/ArtworkMakerActions/UpdateArtworkDetails";
@@ -77,6 +78,7 @@ function App() {
         <Route path="/marketplace" element={<ArtworkList />} />
         <Route path="/studio" element={<StudioProfile member={member} />} />
         <Route path="/gallery" element={<GalleryProfile member={member} />} />
+        <Route path="/about" element={<About />} />
 
         <Route
           path="/artwork/:id"

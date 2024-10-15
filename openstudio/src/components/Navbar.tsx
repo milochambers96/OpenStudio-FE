@@ -44,6 +44,9 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
                   {member && <NavbarNotification />}
                 </Link>
               )}
+              <Link to="/about" className="navbar-item navbar-text">
+                About OpenStudio
+              </Link>
             </div>
 
             <div className="navbar-end">
