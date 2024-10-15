@@ -1,8 +1,8 @@
 const About = () => {
   return (
-    <section className="section">
-      <div className="container">
-        <div className="box scrollable-container">
+    <section className="section mt-6">
+      <div className="container mt-2">
+        <div className="box scrollable-container mt-6">
           <h1 className="title is-2 has-text-centered mb-6">
             Welcome to OpenStudio!
           </h1>

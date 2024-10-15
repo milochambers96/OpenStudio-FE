@@ -16,7 +16,7 @@ function ArtworkList() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
 
   useEffect(() => {
     fetchArtworks();
@@ -26,7 +26,7 @@ function ArtworkList() {
     setIsLoading(true);
     try {
       const response = await axios.get(`${baseUrl}/artworks/`);
-      console.log("API Response:", response.data); // Log the response for debugging
+      console.log("API Response:", response.data);
       setArtworks(
         Array.isArray(response.data)
           ? response.data
@@ -56,7 +56,7 @@ function ArtworkList() {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1);
   };
 
   const paginatedArtworks = filteredArtworks?.slice(
@@ -71,7 +71,7 @@ function ArtworkList() {
       ) : (
         <div className="container mt-5">
           <h1 className="title text-special has-text-centered is-3">
-            Gallery Artworks
+            OpenStudio's Marketplace
           </h1>
           <div className="columns is-centered">
             <div className="column is-one-third-desktop is-full-mobile">

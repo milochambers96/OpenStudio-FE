@@ -16,7 +16,7 @@ function GalleryArtworks() {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 4; // Adjust this number as needed
+  const itemsPerPage = 4;
 
   async function getArtworks(page: number) {
     setIsLoading(true);
@@ -66,7 +66,7 @@ function GalleryArtworks() {
       {galleryArtworks && galleryArtworks.length > 0 ? (
         <>
           <div className="columns is-multiline">
-            {galleryArtworks.map((artwork) => (
+            {galleryArtworks.slice(0, 4).map((artwork) => (
               <ArtworkItems {...artwork} key={artwork.id} />
             ))}
           </div>
