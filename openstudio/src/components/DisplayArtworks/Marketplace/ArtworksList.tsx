@@ -39,9 +39,22 @@ function ArtworkList() {
     }
   };
 
-  const filteredArtworks = artworks?.filter((artwork) =>
-    artwork.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const getArtistFullName = (artwork: IArtwork) => {
+    return `${artwork.artist.first_name} ${artwork.artist.last_name}`.toLowerCase();
+  };
+
+  const filterArtworks = (artworks: IArtwork[], query: string) => {
+    const lowercaseQuery = query.toLowerCase().trim();
+    return artworks.filter(
+      (artwork) =>
+        getArtistFullName(artwork).includes(lowercaseQuery) ||
+        artwork.title.toLowerCase().includes(lowercaseQuery)
+    );
+  };
+
+  const filteredArtworks = artworks
+    ? filterArtworks(artworks, searchQuery)
+    : null;
 
   const totalFilteredArtworks = filteredArtworks?.length || 0;
   const calculatedTotalPages = Math.ceil(totalFilteredArtworks / itemsPerPage);
@@ -80,7 +93,7 @@ function ArtworkList() {
                   <input
                     type="text"
                     className="input"
-                    placeholder="Search for artworks by title"
+                    placeholder="Search by artist"
                     value={searchQuery}
                     onChange={handleSearch}
                   />
