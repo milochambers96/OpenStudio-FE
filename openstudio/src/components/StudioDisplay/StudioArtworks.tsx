@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import { baseUrl } from "../../config";
@@ -17,55 +17,107 @@ interface StudioArtworkProps {
 function StudioArtworks({ memberId }: StudioArtworkProps) {
   const [studioArtworks, setStudioArtworks] = useState<Artworks>(null);
   const [isLoading, setIsLoading] = useState(true);
-
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 4;
+
+  const getArtworks = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(`${baseUrl}/artworks/`);
+      const allArtworks = response.data;
+      console.log("All artworks:", allArtworks);
+
+      const artistsWork = allArtworks.filter(
+        (artwork: IArtwork) => artwork.artist.id === memberId
+      );
+      console.log("Artist's work:", artistsWork);
+
+      setStudioArtworks(artistsWork);
+      setTotalPages(Math.ceil(artistsWork.length / itemsPerPage));
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      if (axios.isAxiosError(error)) {
+        setError(
+          error.response?.data?.detail ||
+            "An error occurred while fetching studio artworks."
+        );
+      } else {
+        setError("An unexpected error occurred.");
+      }
+      console.error("Error fetching studio artworks:", error);
+    }
+  }, [memberId, itemsPerPage]);
 
   useEffect(() => {
-    async function getArtworks() {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const response = await axios.get(`${baseUrl}/artworks/`);
-        const allArtworks = response.data;
-        console.log("All work", allArtworks);
-        const artsitsWork = allArtworks.filter(
-          (artwork: IArtwork) => artwork.artist.id === memberId
-        );
-        console.log("artists work", artsitsWork);
-
-        setStudioArtworks(artsitsWork);
-
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        if (axios.isAxiosError(error)) {
-          setError(
-            error.response?.data?.detail ||
-              "An error occurred while fetching gallery artworks."
-          );
-        } else {
-          setError("An unexpected error occurred.");
-        }
-        console.error("Error fetching gallery artworks:", error);
-      }
+    if (memberId) {
+      getArtworks();
     }
-    getArtworks();
-  }, [memberId]);
+  }, [memberId, getArtworks]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   if (isLoading) return <SectionLoader />;
   if (error) return <p className="has-text-danger">{error}</p>;
 
+  const paginatedArtworks = studioArtworks?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div>
       <h2 className="subtitle text-special has-text-centered is-4">
-        Gallery Artworks
+        Studio Artworks
       </h2>
-      {studioArtworks && studioArtworks.length > 0 ? (
-        <div className="columns is-multiline">
-          {studioArtworks.map((artwork) => (
-            <ArtworkItems {...artwork} key={artwork.id} />
-          ))}
-        </div>
+      {paginatedArtworks && paginatedArtworks.length > 0 ? (
+        <>
+          <div className="columns is-multiline">
+            {paginatedArtworks.map((artwork) => (
+              <ArtworkItems {...artwork} key={artwork.id} />
+            ))}
+          </div>
+          <nav
+            className="pagination is-centered"
+            role="navigation"
+            aria-label="pagination"
+          >
+            <button
+              className="pagination-previous"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <button
+              className="pagination-next"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+            <ul className="pagination-list">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li key={index}>
+                  <button
+                    className={`pagination-link ${
+                      currentPage === index + 1 ? "is-current" : ""
+                    }`}
+                    aria-label={`Go to page ${index + 1}`}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </>
       ) : (
         <p>You haven't uploaded any artworks yet.</p>
       )}

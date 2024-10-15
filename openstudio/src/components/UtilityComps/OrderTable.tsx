@@ -1,5 +1,7 @@
 import { IOrder } from "../../interfaces/order";
 
+import "../../styles/OrdersTableStyles.css";
+
 interface OrdersTableProps {
   orders: IOrder[];
   userType: "buyer" | "seller";
@@ -19,7 +21,7 @@ function OrdersTable({
 }: OrdersTableProps) {
   return (
     <div className="table-container">
-      <table className="table is-fullwidth is-striped is-hoverable">
+      <table className="table is-fullwidth is-striped is-hoverable custom-table">
         <thead>
           <tr>
             <th className="is-narrow">Order ID</th>
@@ -34,7 +36,7 @@ function OrdersTable({
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr key={order.id}>
+            <tr key={order.id} className="custom-table-row">
               <td>{order.id}</td>
               <td>{order.artwork_info.title}</td>
               <td>{order.buyer_info.username}</td>
@@ -51,6 +53,10 @@ function OrdersTable({
                   {order.status === "cancelled" ? (
                     <button className="button is-static" disabled>
                       No Action Required
+                    </button>
+                  ) : order.status === "shipped" ? (
+                    <button className="button is-static" disabled>
+                      Artwork In Transit
                     </button>
                   ) : userType === "buyer" ? (
                     <>
@@ -72,24 +78,29 @@ function OrdersTable({
                           Pay
                         </button>
                       )}
+                      {order.status === "ready to ship" && (
+                        <button className="button is-static" disabled>
+                          Awaiting Shipment
+                        </button>
+                      )}
                     </>
                   ) : userType === "seller" ? (
                     <>
                       {order.status === "pending" && onCancel && onAccept && (
-                        <>
+                        <div className="button-container">
                           <button
-                            className="button is-danger"
+                            className="button is-danger is-small"
                             onClick={() => onCancel(order.id)}
                           >
                             Reject
                           </button>
                           <button
-                            className="button is-success"
+                            className="button is-success is-small"
                             onClick={() => onAccept(order.id)}
                           >
                             Accept
                           </button>
-                        </>
+                        </div>
                       )}
                       {order.status === "accepted" && (
                         <button className="button is-static" disabled>
@@ -101,7 +112,7 @@ function OrdersTable({
                           className="button is-link"
                           onClick={() => onShip(order.id)}
                         >
-                          Ship
+                          Mark as Shipped
                         </button>
                       )}
                     </>

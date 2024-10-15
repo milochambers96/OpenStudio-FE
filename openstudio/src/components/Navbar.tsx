@@ -55,12 +55,11 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
 
               {member && (
                 <span className="navbar-item navbar-message">
-                  {/* // prettier-ignore  */}
                   Hi{" "}
                   <span className="navbar-message-special">
-                    {member.first_name}
+                    {member.first_name},
                   </span>
-                  , welcome back to{" "}
+                  welcome back to{" "}
                   <span className="navbar-message-special">Open Studio</span>
                 </span>
               )}

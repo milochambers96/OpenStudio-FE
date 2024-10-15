@@ -15,3 +15,48 @@
     flex-wrap: wrap;
   }
 }
+
+.artwork-section {
+  min-height: calc(100vh - 52px);
+  display: flex;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.artwork-columns {
+  display: flex;
+  align-items: stretch;
+}
+
+.artwork-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.artwork-box > div {
+  flex: 1;
+  overflow: auto;
+}
+
+@media screen and (min-width: 769px) {
+  .artwork-columns {
+    height: 70vh;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .artwork-section {
+    align-items: flex-start;
+  }
+
+  .artwork-columns {
+    flex-direction: column;
+  }
+
+  .artwork-box {
+    height: 70vh;
+    margin-bottom: 1rem;
+  }
+}

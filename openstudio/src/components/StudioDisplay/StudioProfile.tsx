@@ -20,7 +20,7 @@ function StudioProfile({ member }: { member: IMember | null }) {
   };
 
   return (
-    <section className="section">
+    <section className="section mt-5">
       <div className="box mt-5">
         <div className="mt-2 is-centered text-special">
           <p className="title has-text-centered mb-1">{studioTitle}</p>
@@ -41,7 +41,7 @@ function StudioProfile({ member }: { member: IMember | null }) {
             </li>
           </ul>
         </div>
-        <div>
+        <div className="scrollable-container">
           {activeTab === "artworks" && <StudioArtworks memberId={member?.id} />}
           {activeTab === "upload" && (
             <StudioArtworkUpload onUploadSuccess={handleUploadSuccess} />

@@ -154,7 +154,7 @@ function GalleryOrders() {
 
   return (
     <div>
-      <h2 className="subtitle text-special has-text-centered is-4">
+      <h2 className="title text-special has-text-centered is-4">
         Your Order requests
       </h2>
       {error && <p className="has-text-danger">{error}</p>}

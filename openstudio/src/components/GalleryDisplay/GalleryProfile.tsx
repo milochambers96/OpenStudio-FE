@@ -15,8 +15,8 @@ function GalleryProfile({ member }: { member: IMember | null }) {
     : "Gallery";
 
   return (
-    <section className="section">
-      <div className="box mt-5">
+    <section className="section mt-6">
+      <div className="box mt-6">
         <div className="mt-2 is-centered text-special">
           <p className="title has-text-centered mb-1">{galleryTitle}</p>
         </div>
@@ -33,7 +33,7 @@ function GalleryProfile({ member }: { member: IMember | null }) {
             </li>
           </ul>
         </div>
-        <div>
+        <div className="scrollable-container">
           {activeTab === "artworks" && <GalleryArtworks />}
           {activeTab === "orders" && <GalleryOrders />}
           {activeTab === "details" && <GalleryDetails />}

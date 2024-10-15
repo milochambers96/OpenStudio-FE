@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -11,9 +11,14 @@ import { IArtwork } from "../../../../interfaces/artwork";
 interface CollectorActionProps {
   member: IMember | null;
   artwork: IArtwork | null;
+  onShippingCalculated: (shippingInfo: React.ReactNode) => void;
 }
 
-function PurchaseRequest({ member, artwork }: CollectorActionProps) {
+function PurchaseRequest({
+  member,
+  artwork,
+  onShippingCalculated,
+}: CollectorActionProps) {
   const [isRequested, setIsRequested] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shippingCosts, setShippingCosts] = useState<{
@@ -31,9 +36,6 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
     }
 
     try {
-      console.log("Artwork:", artwork);
-      console.log("Member:", member);
-
       const costs = calculateShippingCost({
         weight: artwork.weight,
         width: artwork.width,
@@ -44,11 +46,17 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
         toPostcode: member.postcode,
       });
 
-      console.log("Calculated costs:", costs);
-
       setShippingCosts(costs);
       setStep("confirm");
       setError(null);
+
+      onShippingCalculated(
+        <div>
+          <p>Artwork Price: £{artwork.price.toFixed(2)}</p>
+          <p>Shipping Cost: £{costs.totalShippingCost.toFixed(2)}</p>
+          <p>Total Price: £{costs.totalPrice.toFixed(2)}</p>
+        </div>
+      );
     } catch (error) {
       console.error("Error in calculateShipping:", error);
       setError("Failed to calculate shipping costs. Please try again.");
@@ -93,9 +101,8 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
       {error && <p className="has-text-danger">{error}</p>}
       {isRequested ? (
         <div>
-          <p>Purchase request sent!</p>
           <Link to="/gallery" className="button is-primary">
-            View in Gallery
+            Request Sent
           </Link>
         </div>
       ) : step === "initial" ? (
@@ -107,20 +114,13 @@ function PurchaseRequest({ member, artwork }: CollectorActionProps) {
           Want to buy?
         </button>
       ) : (
-        shippingCosts && (
-          <div>
-            <p>Artwork Price: £{artwork?.price.toFixed(2)}</p>
-            <p>Shipping Cost: £{shippingCosts.totalShippingCost.toFixed(2)}</p>
-            <p>Total Price: £{shippingCosts.totalPrice.toFixed(2)}</p>
-            <button
-              className="button is-primary"
-              onClick={sendPurchaseRequest}
-              disabled={isRequested}
-            >
-              Order Request
-            </button>
-          </div>
-        )
+        <button
+          className="button is-primary"
+          onClick={sendPurchaseRequest}
+          disabled={isRequested}
+        >
+          Send Request
+        </button>
       )}
     </div>
   );

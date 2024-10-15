@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { baseUrl } from "../../../config";
@@ -15,26 +15,51 @@ function ArtworkList() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 6;
 
   useEffect(() => {
-    const fetchArtworks = async () => {
-      const response = await axios.get(`${baseUrl}/artworks/`);
-      setArtworks(response.data);
-      setIsLoading(false);
-    };
-
     fetchArtworks();
   }, []);
+
+  const fetchArtworks = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${baseUrl}/artworks/`);
+      console.log("API Response:", response.data); // Log the response for debugging
+      setArtworks(
+        Array.isArray(response.data)
+          ? response.data
+          : response.data.artworks || []
+      );
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching artworks:", error);
+      setIsLoading(false);
+    }
+  };
 
   const filteredArtworks = artworks?.filter((artwork) =>
     artwork.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const totalPages = filteredArtworks
-    ? Math.ceil(filteredArtworks.length / itemsPerPage)
-    : 1;
-  const currentArtworks = filteredArtworks?.slice(
+  const totalFilteredArtworks = filteredArtworks?.length || 0;
+  const calculatedTotalPages = Math.ceil(totalFilteredArtworks / itemsPerPage);
+
+  useEffect(() => {
+    setTotalPages(calculatedTotalPages);
+  }, [calculatedTotalPages]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset to first page on new search
+  };
+
+  const paginatedArtworks = filteredArtworks?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -55,40 +80,59 @@ function ArtworkList() {
                   <input
                     type="text"
                     className="input"
-                    placeholder="Search for artworks by artist"
+                    placeholder="Search for artworks by title"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearch}
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="columns is-multiline">
-            {currentArtworks?.map((artwork) => (
-              <ArtworkItems {...artwork} key={artwork.id} />
-            ))}
+          <div className="scrollable-container">
+            <div className="columns is-multiline">
+              {paginatedArtworks?.map((artwork) => (
+                <ArtworkItems {...artwork} key={artwork.id} />
+              ))}
+            </div>
           </div>
 
-          <nav
-            className="pagination is-centered"
-            role="navigation"
-            aria-label="pagination"
-          >
-            <ul className="pagination-list">
-              {[...Array(totalPages)].map((_, index) => (
-                <li key={index}>
-                  <a
-                    className={`pagination-link ${
-                      currentPage === index + 1 ? "is-current" : ""
-                    }`}
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {totalFilteredArtworks > 0 && (
+            <nav
+              className="pagination is-centered"
+              role="navigation"
+              aria-label="pagination"
+            >
+              <button
+                className="pagination-previous"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <button
+                className="pagination-next"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+              <ul className="pagination-list">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <li key={index}>
+                    <button
+                      className={`pagination-link ${
+                        currentPage === index + 1 ? "is-current" : ""
+                      }`}
+                      aria-label={`Go to page ${index + 1}`}
+                      onClick={() => handlePageChange(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
         </div>
       )}
     </section>

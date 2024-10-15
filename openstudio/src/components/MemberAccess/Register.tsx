@@ -73,7 +73,7 @@ function Register({ handleRegisterSuccess }: RegisterProps) {
   }
 
   return (
-    <div className="section">
+    <div className="section scrollable-container">
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-half-desktop is-three-quarters-tablet is-full-mobile">

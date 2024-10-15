@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -21,10 +21,23 @@ interface ArtworkDetailsProps {
 
 function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
   const [activeTab, setActiveTab] = useState("summary");
+  const [shippingInfo, setShippingInfo] = useState<React.ReactNode | null>(
+    null
+  );
 
   const artworkId = artwork?.id;
 
   const navigate = useNavigate();
+
+  const styles = {
+    artworkDetailsContent: {
+      padding: "0 1rem",
+    },
+    alignWithContent: {
+      paddingLeft: "3rem",
+      paddingRight: "1.5rem",
+    },
+  };
 
   async function deleteArtwork() {
     try {
@@ -38,11 +51,18 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
     }
   }
 
+  const handleShippingCalculated = (info: React.ReactNode) => {
+    setShippingInfo(info);
+  };
+
   return (
     <div className="artwork-details-container">
-      <div className="artwork-details-content">
+      <div
+        className="artwork-details-content"
+        style={styles.artworkDetailsContent}
+      >
         <div className="mt-2">
-          <p className="subtitle has-text-centered">
+          <p className="title has-text-centered">
             {artwork?.title} by {artwork?.artist.first_name}{" "}
             {artwork?.artist.last_name}
           </p>
@@ -66,13 +86,22 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
             <Specifications artwork={artwork} />
           )}
         </div>
+        {shippingInfo && (
+          <div className="shipping-info mt-2" style={styles.alignWithContent}>
+            <h3 className="title is-6">Shipping Information</h3>
+            {shippingInfo}
+          </div>
+        )}
       </div>
       <div className="artwork-details-actions">
         {member?.user_type === "collector" && (
           <div className="is-flex is-justify-content-space-around">
-            <CollectorGalleryActions member={member} artwork={artwork} />
             {artwork?.is_for_sale ? (
-              <PurchaseRequest member={member} artwork={artwork} />
+              <PurchaseRequest
+                member={member}
+                artwork={artwork}
+                onShippingCalculated={handleShippingCalculated}
+              />
             ) : (
               <p>
                 <strong>
@@ -80,22 +109,26 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
                 </strong>
               </p>
             )}
-          </div>
-        )}
-        {member?.id === artwork?.artist.id && !artwork?.is_for_sale && (
-          <div className="note">
-            You have not listed this work for sale on OpenStudio's Marketplace.
+            <CollectorGalleryActions member={member} artwork={artwork} />
           </div>
         )}
         {member?.id === artwork?.artist.id && (
-          <div className="is-flex-is-justify-content-space-between">
-            <Link to={`/artwork/${artworkId}/edit-details`}>
-              <button className="button is-link">Update Artwork</button>
+          <>
+            {!artwork?.is_for_sale && (
+              <div className="artist-sale-note mb-5">
+                You have not listed this work for sale on OpenStudio's
+                Marketplace.
+              </div>
+            )}
+            <div className="is-flex is-justify-content-space-around">
+              <Link to={`/artwork/${artworkId}/edit-details`}>
+                <button className="button is-link">Update Artwork</button>
+              </Link>
               <button className="button is-danger" onClick={deleteArtwork}>
                 Delete Artwork
               </button>
-            </Link>
-          </div>
+            </div>
+          </>
         )}
         {!member && <p>Login as a collector to purchase work.</p>}
       </div>

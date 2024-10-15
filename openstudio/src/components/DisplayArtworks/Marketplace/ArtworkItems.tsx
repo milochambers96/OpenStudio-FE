@@ -1,5 +1,5 @@
-import { IArtwork } from "../../../interfaces/artwork";
 import { Link } from "react-router-dom";
+import { IArtwork } from "../../../interfaces/artwork";
 
 function ArtworkItems({ id, title, artist, artworks_images }: IArtwork) {
   return (
@@ -10,11 +10,11 @@ function ArtworkItems({ id, title, artist, artworks_images }: IArtwork) {
             <div className="card-header-title">{title}</div>
           </div>
           <div className="card-image">
-            <figure className="image fixed-image-container">
+            <figure className="image is-3by2">
               <img
                 src={artworks_images[0]?.image_url}
                 alt={`An image of ${title}`}
-                className="fixed-image"
+                className="artwork-image"
               />
             </figure>
           </div>

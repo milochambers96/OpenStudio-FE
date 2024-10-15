@@ -13,10 +13,12 @@ type Artworks = null | Array<IArtwork>;
 function GalleryArtworks() {
   const [galleryArtworks, setGalleryArtworks] = useState<Artworks>(null);
   const [isLoading, setIsLoading] = useState(true);
-
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 4; // Adjust this number as needed
 
-  async function getArtworks() {
+  async function getArtworks(page: number) {
     setIsLoading(true);
     setError(null);
     try {
@@ -25,8 +27,13 @@ function GalleryArtworks() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          page: page,
+          per_page: itemsPerPage,
+        },
       });
       setGalleryArtworks(response.data.artworks);
+      setTotalPages(Math.ceil(response.data.total / itemsPerPage));
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -43,25 +50,62 @@ function GalleryArtworks() {
   }
 
   useEffect(() => {
-    getArtworks();
-  }, []);
+    getArtworks(currentPage);
+  }, [currentPage]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   if (isLoading) return <SectionLoader />;
   if (error) return <p className="has-text-danger">{error}</p>;
 
-  console.log(galleryArtworks);
-
   return (
     <div>
-      <h2 className="subtitle text-special has-text-centered is-4">
-        Gallery Artworks
-      </h2>
+      <h2 className="title text-special has-text-centered is-4">Saved works</h2>
       {galleryArtworks && galleryArtworks.length > 0 ? (
-        <div className="columns is-multiline">
-          {galleryArtworks.map((artwork) => (
-            <ArtworkItems {...artwork} key={artwork.id} />
-          ))}
-        </div>
+        <>
+          <div className="columns is-multiline">
+            {galleryArtworks.map((artwork) => (
+              <ArtworkItems {...artwork} key={artwork.id} />
+            ))}
+          </div>
+          <nav
+            className="pagination is-centered"
+            role="navigation"
+            aria-label="pagination"
+          >
+            <button
+              className="pagination-previous"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <button
+              className="pagination-next"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+            <ul className="pagination-list">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li key={index}>
+                  <button
+                    className={`pagination-link ${
+                      currentPage === index + 1 ? "is-current" : ""
+                    }`}
+                    aria-label={`Go to page ${index + 1}`}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </>
       ) : (
         <p>No artworks in your gallery yet.</p>
       )}

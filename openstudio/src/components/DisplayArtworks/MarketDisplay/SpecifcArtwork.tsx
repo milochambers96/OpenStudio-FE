@@ -23,9 +23,7 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
   useEffect(() => {
     async function fetchArtworkDetails() {
       try {
-        const response = await axios.get(
-          `${baseUrl}/artworks/${id}/`
-        );
+        const response = await axios.get(`${baseUrl}/artworks/${id}/`);
         setArtwork(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -56,19 +54,19 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
   console.log("the artwork is", artwork);
 
   return (
-    <section className="section mt-4" style={{ height: "calc(100vh - 52px)" }}>
-      <div className="container mt-6 h-100">
-        <div className="columns is-multiline is-centered h-100">
+    <section className="section mt-4 artwork-section">
+      <div className="container mt-6">
+        <div className="columns is-centered artwork-columns">
           {artwork && (
-            <div className="column is-one-half-desktop is-full-mobile h-100">
-              <div className="box h-100 overflow-auto">
+            <div className="column is-two-fifths-desktop is-full-tablet">
+              <div className="box artwork-box">
                 <ImageCarousel images={imagesArray} />
               </div>
             </div>
           )}
           {artwork && (
-            <div className="column is-one-half-desktop is-full-mobile h-100">
-              <div className="box h-100 overflow-auto">
+            <div className="column is-two-fifths-desktop is-full-tablet">
+              <div className="box artwork-box">
                 <ArtworkDetails artwork={artwork} member={member} />
               </div>
             </div>
