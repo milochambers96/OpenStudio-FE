@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
 
 import { baseUrl } from "../../../config";
@@ -14,6 +14,7 @@ function ArtworkList() {
   const [artworks, setArtworks] = useState<Artworks>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [showOnlyForSale, setShowOnlyForSale] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 8;
@@ -26,7 +27,6 @@ function ArtworkList() {
     setIsLoading(true);
     try {
       const response = await axios.get(`${baseUrl}/artworks/`);
-      console.log("API Response:", response.data);
       setArtworks(
         Array.isArray(response.data)
           ? response.data
@@ -43,17 +43,22 @@ function ArtworkList() {
     return `${artwork.artist.first_name} ${artwork.artist.last_name}`.toLowerCase();
   };
 
-  const filterArtworks = (artworks: IArtwork[], query: string) => {
+  const filterArtworks = (
+    artworks: IArtwork[],
+    query: string,
+    onlyForSale: boolean
+  ) => {
     const lowercaseQuery = query.toLowerCase().trim();
     return artworks.filter(
       (artwork) =>
-        getArtistFullName(artwork).includes(lowercaseQuery) ||
-        artwork.title.toLowerCase().includes(lowercaseQuery)
+        (getArtistFullName(artwork).includes(lowercaseQuery) ||
+          artwork.title.toLowerCase().includes(lowercaseQuery)) &&
+        (!onlyForSale || artwork.is_for_sale)
     );
   };
 
   const filteredArtworks = artworks
-    ? filterArtworks(artworks, searchQuery)
+    ? filterArtworks(artworks, searchQuery, showOnlyForSale)
     : null;
 
   const totalFilteredArtworks = filteredArtworks?.length || 0;
@@ -67,8 +72,13 @@ function ArtworkList() {
     setCurrentPage(newPage);
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleForSaleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setShowOnlyForSale(e.target.checked);
     setCurrentPage(1);
   };
 
@@ -97,6 +107,18 @@ function ArtworkList() {
                     value={searchQuery}
                     onChange={handleSearch}
                   />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <label className="checkbox">
+                    <input
+                      type="checkbox"
+                      checked={showOnlyForSale}
+                      onChange={handleForSaleFilter}
+                    />{" "}
+                    Only show artworks available for purchase
+                  </label>
                 </div>
               </div>
             </div>

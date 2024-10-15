@@ -51,7 +51,7 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
       };
 
       const token = localStorage.getItem("token");
-      const response = await axios.post(
+      await axios.post(
         `${baseUrl}/artworks/create/`,
         artworkData,
         {
@@ -60,9 +60,6 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
           },
         }
       );
-
-      console.log("Artwork creation response:", response.data);
-
       onUploadSuccess();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

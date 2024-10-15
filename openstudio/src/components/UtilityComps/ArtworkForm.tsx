@@ -61,7 +61,6 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
             : parseFloat(value)
           : value,
     }));
-    console.log(`Field ${name} updated to:`, value);
   };
 
   const handleFileChange = (
@@ -78,7 +77,6 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
     setErrors({});
 
     try {
-      console.log("Submitting form data:", formData);
       await onSubmit(formData, selectedFiles);
     } catch (error) {
       console.error("Error submitting form:", error);

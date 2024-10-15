@@ -56,7 +56,6 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
         getAuthConfig()
       );
       setIsInGallery(true);
-      console.log("Adding to gallery");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error adding artwork:", error.response?.data);

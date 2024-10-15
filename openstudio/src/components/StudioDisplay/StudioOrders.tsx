@@ -173,8 +173,6 @@ function StudioOrders() {
     [getOrders]
   );
 
-  console.log("Order List", studioOrders);
-
   if (isLoading) return <SectionLoader />;
   if (error) return <p className="has-text-danger">{error}</p>;
 

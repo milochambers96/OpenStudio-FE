@@ -51,8 +51,6 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
     return <div>Artwork not found.</div>;
   }
 
-  console.log("the artwork is", artwork);
-
   return (
     <section className="section mt-4 artwork-section">
       <div className="container mt-6">

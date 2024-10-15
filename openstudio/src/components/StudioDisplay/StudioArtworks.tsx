@@ -28,12 +28,10 @@ function StudioArtworks({ memberId }: StudioArtworkProps) {
     try {
       const response = await axios.get(`${baseUrl}/artworks/`);
       const allArtworks = response.data;
-      console.log("All artworks:", allArtworks);
 
       const artistsWork = allArtworks.filter(
         (artwork: IArtwork) => artwork.artist.id === memberId
       );
-      console.log("Artist's work:", artistsWork);
 
       setStudioArtworks(artistsWork);
       setTotalPages(Math.ceil(artistsWork.length / itemsPerPage));

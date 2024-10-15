@@ -184,32 +184,24 @@ export const calculateShippingCost = ({
   const insuranceRate = 0.01;
 
   const volume = width * depth * height;
-  console.log("Calculated volume:", volume);
 
   const volumeCost = volume * volumeFactor;
   const weightCost = weight * weightFactor;
-  console.log("Volume cost:", volumeCost, "Weight cost:", weightCost);
 
   const fromZone = getZone(fromPostcode);
   const toZone = getZone(toPostcode);
-  console.log("From zone:", fromZone, "To zone:", toZone);
 
   const zoneDifference = Math.abs(fromZone - toZone);
   const zoneMultiplier = 1 + zoneDifference * 0.2;
-  console.log("Zone multiplier:", zoneMultiplier);
 
   const baseShippingCost =
     (baseRate + weightCost + volumeCost) * zoneMultiplier;
-  console.log("Base shipping cost:", baseShippingCost);
 
   const insuranceCost = price * insuranceRate;
-  console.log("Insurance cost:", insuranceCost);
 
   const totalShippingCost = baseShippingCost + insuranceCost;
-  console.log("Total shipping cost:", totalShippingCost);
 
   const totalPrice = price + totalShippingCost;
-  console.log("Total price:", totalPrice);
 
   return {
     baseShippingCost: parseFloat(baseShippingCost.toFixed(2)),
