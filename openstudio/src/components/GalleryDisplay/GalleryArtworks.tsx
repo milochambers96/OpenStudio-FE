@@ -65,12 +65,10 @@ function GalleryArtworks() {
       <h2 className="title text-special has-text-centered is-4">Saved works</h2>
       {galleryArtworks && galleryArtworks.length > 0 ? (
         <>
-          <div className="gallery-grid">
-            <div className="columns is-multiline is-mobile">
-              {galleryArtworks.map((artwork) => (
-                <ArtworkItems {...artwork} key={artwork.id} />
-              ))}
-            </div>
+          <div className="columns is-multiline">
+            {galleryArtworks.map((artwork) => (
+              <ArtworkItems {...artwork} key={artwork.id} />
+            ))}
           </div>
           <nav
             className="pagination is-centered"
