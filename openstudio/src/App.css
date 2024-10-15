@@ -216,7 +216,7 @@ select:hover {
 .scrollable-container {
   display: flex;
   flex-direction: column;
-  max-height: 70vh;
+  max-height: 60vh;
   overflow-y: auto;
   border-radius: 8px;
   padding: 20px;
