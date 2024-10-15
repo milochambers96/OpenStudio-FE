@@ -7,6 +7,7 @@ interface SummaryProp {
 function Summary({ artwork }: SummaryProp) {
   return (
     <section className="section">
+      <h2 className="title is-5">About the Work</h2>
       <p>{artwork?.description}</p>
       <br />
       <p>

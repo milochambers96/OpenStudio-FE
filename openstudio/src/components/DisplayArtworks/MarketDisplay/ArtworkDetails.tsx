@@ -11,6 +11,7 @@ import { IMember } from "../../../interfaces/member";
 
 import Summary from "./Summary";
 import Specifications from "./Specifications";
+import ArtworkArtistBio from "./ArtworkArtistBio";
 import CollectorGalleryActions from "./CollectorActions/CollectorGalleryActions";
 import PurchaseRequest from "./CollectorActions/PurchaseRequest";
 
@@ -77,14 +78,21 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
                 Specifications
               </a>
             </li>
+            <li className={activeTab === "artwork artist" ? "is-active" : ""}>
+              <a onClick={() => setActiveTab("artwork artist")}>
+                Artist details
+              </a>
+            </li>
           </ul>
         </div>
         <div className="tab-content">
           {activeTab === "summary" ? (
             <Summary artwork={artwork} />
-          ) : (
+          ) : activeTab === "specifications" ? (
             <Specifications artwork={artwork} />
-          )}
+          ) : activeTab === "artwork artist" ? (
+            <ArtworkArtistBio artwork={artwork} />
+          ) : null}
         </div>
         {shippingInfo && (
           <div className="shipping-info mt-2" style={styles.alignWithContent}>

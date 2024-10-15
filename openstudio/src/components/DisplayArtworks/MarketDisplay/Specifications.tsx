@@ -7,6 +7,8 @@ interface SpecProp {
 function Specifications({ artwork }: SpecProp) {
   return (
     <section className="section">
+      <h2 className="title is-5">Artwork Specifications</h2>
+
       <ul>
         <li>
           <strong className="text-special">Year created:</strong>{" "}
