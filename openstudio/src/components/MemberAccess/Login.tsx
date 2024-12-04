@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, } from "react-router-dom";
 
 import { baseUrl } from "../../config";
 
@@ -99,12 +99,6 @@ function Login({ fetchMember }: LoginProps) {
               </div>
               <div className="field is-flex is-justify-content-center mt-3">
                 <button className="button is-link">Login</button>
-              </div>
-              <div className="has-text-centered mt-5">
-                <p>
-                  Don't have an account? Register for an account{" "}
-                  <Link to={"/signup"}>here</Link>.
-                </p>
               </div>
             </form>
           </div>
