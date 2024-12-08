@@ -3,7 +3,7 @@
 
 body {
   /* background: linear-gradient(to bottom right, #f8b195, #355c7d); */
-  background: #8a9b8c;
+  background: #404040;
 
   margin: 0;
   /* height: 100vh; */
@@ -29,57 +29,57 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #7c8b7d;
+  background: #2a2a2a;
 }
 
 .os-content-bk {
-  background-color: #b0bab3;
-  border: 3px solid #8a9b8c;
+  background-color: #2a2a2a;
+  border: 3px solid #666666;
 }
 
 .os-subcontent-bk {
-  background-color: #b85c3c;
+  background-color: #666666;
   border-radius: 2%;
   padding: 1rem 0.75rem;
 }
 
 .os-accent-bk {
-  background-color: #b85c3c;
+  background-color: #937264;
 }
 
 .os-accent-text {
-  color: #b85c3c;
+  color: #937264;
 }
 
 .os-title-text {
-  color: #2c332c;
+  color: #e5e1dd;
 }
 
 .os-subtitle-text {
-  color: #454c45;
+  color: #c2bbb5;
 }
 
 .os-body-text {
-  color: #5b625b;
+  color: #9a958f;
 }
 
 .tabs {
-  border-bottom-color: #8a9b8c; /* Match your border color */
+  border-bottom-color: #666666;
 }
 
 .tabs ul li a {
-  color: #2c332c; /* Your dark sage color for better contrast */
+  color: #c2bbb5;
 }
 
 .tabs ul li.is-active a {
-  color: #b85c3c;
-  border-bottom-color: #b85c3c;
+  color: #5b8a9d;
+  border-bottom-color: #5b8a9d;
   font-weight: bold;
 }
 
 .tabs ul li a:hover {
-  color: #b85c3c;
-  border-bottom-color: #b85c3c;
+  color: #5b8a9d;
+  border-bottom-color: #5b8a9d;
 }
 
 .text-special {
@@ -90,27 +90,27 @@ body {
 
 .input,
 .textarea {
-  background-color: #2c332c;
-  border: 2px solid #8a9b8c;
-  color: #f7f4f0;
+  background-color: #2a2a2a;
+  border: 2px solid #666666;
+  color: #e5e1dd;
   font-family: "Caveat", cursive;
   font-optical-sizing: auto;
   font-style: normal;
 }
 
 .checkbox {
-  color: #2c332c;
+  color: #e5e1dd;
 }
 
 .input::placeholder,
 .textarea::placeholder {
-  color: #f7f4f0;
+  color: #9a958f;
 }
 
 .input:focus,
 .textarea:focus {
-  border-color: #f8b195;
-  box-shadow: 0 0 0 0.125em rgba(248, 177, 149, 0.25);
+  border-color: #5b8a9d;
+  box-shadow: 0 0 0 0.125em rgba(91, 138, 157, 0.25);
 }
 
 select {
@@ -130,6 +130,18 @@ select {
 /* Hover state */
 select:hover {
   border-color: #f8b195;
+}
+
+.is-destroy {
+  background-color: #8b3a2b; /* Deep rust */
+}
+
+.is-link {
+  background-color: #5b8a9d; /* Steel blue */
+}
+
+.is-order {
+  background-color: #6b8e6b; /* Sage progress */
 }
 
 .fullscreen-loader {
@@ -212,10 +224,10 @@ select:hover {
   width: 8px;
 }
 .scrollable-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(42, 42, 42, 0.1);
 }
 .scrollable-container::-webkit-scrollbar-thumb {
-  background-color: rgba(53, 92, 125, 0.5);
+  background-color: rgba(147, 114, 100, 0.5);
   border-radius: 4px;
 }
 .scrollable-container {
@@ -229,5 +241,5 @@ select:hover {
   max-height: 18.75rem;
   object-fit: contain;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
