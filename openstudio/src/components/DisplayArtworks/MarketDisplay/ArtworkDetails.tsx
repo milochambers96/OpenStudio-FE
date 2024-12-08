@@ -138,7 +138,14 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
             </div>
           </>
         )}
-        {!member && <p>Login as a collector to purchase work.</p>}
+        {!member && (
+          <div className="is-flex is-justify-content-center">
+            <p className="is-size-4">
+              <Link to="/member-access">Login</Link> as a collector to purchase
+              work.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

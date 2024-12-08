@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { IMember } from "../interfaces/member";
 import NavbarNotification from "./NavbarNotifications";
+import { useState } from "react";
 
 interface NavbarProps {
   member: null | IMember;
@@ -10,7 +11,12 @@ interface NavbarProps {
 }
 
 function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
+  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
+
+  function toggleBurger() {
+    setIsActive(!isActive);
+  }
 
   function logout() {
     localStorage.removeItem("token");
@@ -27,51 +33,71 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
               <Link to="/" className="navbar-item navbar-text">
                 Home
               </Link>
-              <Link to="/marketplace" className="navbar-item navbar-text">
-                Marketplace
-              </Link>
-
-              {isArtist && (
-                <Link to="/studio" className="navbar-item navbar-text">
-                  Studio
-                  {member && <NavbarNotification />}
-                </Link>
+              {member && (
+                <>
+                  <span className="navbar-item navbar-text is-hidden-desktop">
+                    Hi {member.first_name}, welcome back to Open Studio
+                  </span>
+                </>
               )}
-
-              {isCollector && (
-                <Link to="/gallery" className="navbar-item navbar-text">
-                  Gallery
-                  {member && <NavbarNotification />}
-                </Link>
-              )}
-              <Link to="/about" className="navbar-item navbar-text">
-                About OpenStudio
-              </Link>
+              {/* Burger button for mobile */}
+              <a
+                role="button"
+                className={`navbar-burger ${isActive ? "is-active" : ""}`}
+                aria-label="menu"
+                aria-expanded="false"
+                onClick={toggleBurger}
+              >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
             </div>
 
-            <div className="navbar-end">
-              {!member && (
-                <Link to="/member-access" className="navbar-item navbar-text">
-                  Register/Login
+            {/* Navbar menu that toggles on burger click */}
+            <div className={`navbar-menu ${isActive ? "is-active" : ""}`}>
+              <div className="navbar-start">
+                <Link to="/marketplace" className="navbar-item navbar-text">
+                  Marketplace
                 </Link>
-              )}
 
-              {member && (
-                <span className="navbar-item navbar-message">
-                  Hi{" "}
-                  <span className="navbar-message-special">
-                    {member.first_name},
-                  </span>
-                  welcome back to{" "}
-                  <span className="navbar-message-special">Open Studio</span>
-                </span>
-              )}
+                {isArtist && (
+                  <Link to="/studio" className="navbar-item navbar-text">
+                    Studio
+                    {member && <NavbarNotification />}
+                  </Link>
+                )}
 
-              {member && (
-                <button onClick={logout} className="navbar-item is-ghost">
-                  Logout
-                </button>
-              )}
+                {isCollector && (
+                  <Link to="/gallery" className="navbar-item navbar-text">
+                    Gallery
+                    {member && <NavbarNotification />}
+                  </Link>
+                )}
+
+                <Link to="/about" className="navbar-item navbar-text">
+                  About OpenStudio
+                </Link>
+              </div>
+
+              <div className="navbar-end">
+                {!member && (
+                  <Link to="/member-access" className="navbar-item navbar-text">
+                    Register/Login
+                  </Link>
+                )}
+
+                {member && (
+                  <>
+                    <span className="navbar-item navbar-text is-hidden-touch">
+                      Hi {member.first_name}, welcome back to Open Studio
+                    </span>
+                    <button onClick={logout} className="navbar-item is-ghost">
+                      Logout
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </nav>
