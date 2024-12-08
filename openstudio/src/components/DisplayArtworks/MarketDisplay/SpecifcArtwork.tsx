@@ -53,22 +53,34 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
 
   return (
     <section className="section mt-4 artwork-section">
-      <div className="container mt-6">
-        <div className="columns is-centered artwork-columns">
-          {artwork && (
-            <div className="column is-two-fifths-desktop is-full-tablet">
-              <div className="box artwork-box">
-                <ImageCarousel images={imagesArray} />
+      <div className="container">
+        <div className="columns is-centered">
+          <div className="column is-11">
+            <div className="box has-background-warning mt-6">
+              <div className="has-text-centered py-4 mb-2">
+                <h1 className="title">
+                  {artwork.title} by {artwork.artist.first_name}{" "}
+                  {artwork.artist.last_name}
+                </h1>
+              </div>
+              <div className="columns is-centered artwork-columns">
+                {artwork && (
+                  <div className="column is-5">
+                    <div className="box artwork-box">
+                      <ImageCarousel images={imagesArray} />
+                    </div>
+                  </div>
+                )}
+                {artwork && (
+                  <div className="column is-7">
+                    <div className="box artwork-box">
+                      <ArtworkDetails artwork={artwork} member={member} />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          )}
-          {artwork && (
-            <div className="column is-two-fifths-desktop is-full-tablet">
-              <div className="box artwork-box">
-                <ArtworkDetails artwork={artwork} member={member} />
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </section>

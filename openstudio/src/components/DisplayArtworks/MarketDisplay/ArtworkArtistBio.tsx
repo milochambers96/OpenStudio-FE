@@ -6,27 +6,29 @@ interface ArtworkArtistProp {
 
 function ArtworkArtistBio({ artwork }: ArtworkArtistProp) {
   return (
-    <section className="section">
-      <div className="container">
+    <div className="px-6 py-4">
+      <div className="content">
         <h2 className="title is-5">About the Artist</h2>
-        <div className="content">
-          <p>{artwork?.artist.bio || "No artist bio available."}</p>
-          {artwork?.artist.website && (
-            <p>
-              Connect with the artist:{" "}
-              <a
-                href={artwork?.artist.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="is-link"
-              >
-                Visit Website
-              </a>
-            </p>
-          )}
-        </div>
+        {artwork?.artist.bio ? (
+          <p>{artwork.artist.bio}</p>
+        ) : (
+          <p>The artist has not uploaded a bio yet.</p>
+        )}
+        {artwork?.artist.website && (
+          <p>
+            Connect with the artist:{" "}
+            <a
+              href={artwork?.artist.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="is-link"
+            >
+              Visit Website.
+            </a>
+          </p>
+        )}
       </div>
-    </section>
+    </div>
   );
 }
 

@@ -6,15 +6,13 @@ interface SummaryProp {
 
 function Summary({ artwork }: SummaryProp) {
   return (
-    <section className="section">
+    <div className="px-6 py-4">
       <h2 className="title is-5">About the Work</h2>
-      <p>{artwork?.description}</p>
-      <br />
-      <p>
-        <strong className="text-special">Price (GBP): </strong> £
-        {artwork?.price}
-      </p>
-    </section>
+      <div className="content">
+        <p>{artwork?.description}</p>
+        <p className="has-text-weight-bold">Price (GBP): £{artwork?.price}</p>
+      </div>
+    </div>
   );
 }
 

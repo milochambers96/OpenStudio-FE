@@ -3,6 +3,8 @@ import { IMember } from "../interfaces/member";
 import NavbarNotification from "./NavbarNotifications";
 import { useState } from "react";
 
+import "../styles/NavbarStyles.css";
+
 interface NavbarProps {
   member: null | IMember;
   setMember: (member: IMember | null) => void;
@@ -33,13 +35,6 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
               <Link to="/" className="navbar-item navbar-text">
                 Home
               </Link>
-              {member && (
-                <>
-                  <span className="navbar-item navbar-text is-hidden-desktop">
-                    Hi {member.first_name}, welcome back to Open Studio
-                  </span>
-                </>
-              )}
               {/* Burger button for mobile */}
               <a
                 role="button"
@@ -89,10 +84,13 @@ function Navbar({ member, setMember, isArtist, isCollector }: NavbarProps) {
 
                 {member && (
                   <>
-                    <span className="navbar-item navbar-text is-hidden-touch">
-                      Hi {member.first_name}, welcome back to Open Studio
+                    <span className="navbar-text navbar-message is-hidden-touch">
+                      Hi {member.first_name}, welcome back to OpenStudio
                     </span>
-                    <button onClick={logout} className="navbar-item is-ghost">
+                    <button
+                      onClick={logout}
+                      className="navbar-logout os-accent-text"
+                    >
                       Logout
                     </button>
                   </>

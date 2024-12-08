@@ -57,16 +57,16 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
   };
 
   return (
-    <div className="artwork-details-container">
+    <article className="artwork-details-container">
       <div
         className="artwork-details-content"
         style={styles.artworkDetailsContent}
       >
         <div className="mt-2">
-          <p className="title has-text-centered">
+          {/* <p className="title has-text-centered">
             {artwork?.title} by {artwork?.artist.first_name}{" "}
             {artwork?.artist.last_name}
-          </p>
+          </p> */}
         </div>
         <div className="tabs is-centered mt-4">
           <ul>
@@ -147,7 +147,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
           </div>
         )}
       </div>
-    </div>
+    </article>
   );
 }
 

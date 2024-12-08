@@ -93,32 +93,36 @@ function ArtworkList() {
         <FullPageLoader />
       ) : (
         <div className="container mt-5">
-          <h1 className="title text-special has-text-centered is-3">
+          <h1 className="title os-title-text has-text-centered is-2">
             OpenStudio's Marketplace
           </h1>
-          <div className="columns is-centered">
-            <div className="column is-one-third-desktop is-full-mobile">
-              <div className="field">
-                <div className="control">
-                  <input
-                    type="text"
-                    className="input"
-                    placeholder="Search by artist"
-                    value={searchQuery}
-                    onChange={handleSearch}
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <div className="control">
-                  <label className="checkbox">
-                    <input
-                      type="checkbox"
-                      checked={showOnlyForSale}
-                      onChange={handleForSaleFilter}
-                    />{" "}
-                    Only show artworks available for purchase
-                  </label>
+          <div id="market-search-container" className="container">
+            <div className="columns is-centered">
+              <div className="column is-one-third">
+                <div className="box os-content-bk p-2">
+                  <div className="field">
+                    <div className="control">
+                      <input
+                        type="text"
+                        className="input"
+                        placeholder="Search by artist"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                      />
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="control">
+                      <label className="checkbox">
+                        <input
+                          type="checkbox"
+                          checked={showOnlyForSale}
+                          onChange={handleForSaleFilter}
+                        />{" "}
+                        Only show artworks available for purchase
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
