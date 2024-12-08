@@ -17,7 +17,7 @@ function ArtworkList() {
   const [showOnlyForSale, setShowOnlyForSale] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 9;
 
   useEffect(() => {
     fetchArtworks();
@@ -96,7 +96,7 @@ function ArtworkList() {
           <h1 className="title os-title-text has-text-centered is-2">
             OpenStudio's Marketplace
           </h1>
-          <div id="market-search-container" className="container">
+          <div id="market-search-container">
             <div className="columns is-centered">
               <div className="column is-one-third">
                 <div className="box os-content-bk p-2">
@@ -105,7 +105,7 @@ function ArtworkList() {
                       <input
                         type="text"
                         className="input"
-                        placeholder="Search by artist"
+                        placeholder="Search by artist or artwork"
                         value={searchQuery}
                         onChange={handleSearch}
                       />
@@ -127,12 +127,10 @@ function ArtworkList() {
               </div>
             </div>
           </div>
-          <div className="scrollable-container">
-            <div className="columns is-multiline">
-              {paginatedArtworks?.map((artwork) => (
-                <ArtworkItems {...artwork} key={artwork.id} />
-              ))}
-            </div>
+          <div className="columns is-multiline">
+            {paginatedArtworks?.map((artwork) => (
+              <ArtworkItems {...artwork} key={artwork.id} />
+            ))}
           </div>
 
           {totalFilteredArtworks > 0 && (
