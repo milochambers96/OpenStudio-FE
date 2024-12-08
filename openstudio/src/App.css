@@ -37,6 +37,12 @@ body {
   border: 3px solid #8a9b8c;
 }
 
+.os-subcontent-bk {
+  background-color: #b85c3c;
+  border-radius: 2%;
+  padding: 1rem 0.75rem;
+}
+
 .os-accent-bk {
   background-color: #b85c3c;
 }
@@ -57,14 +63,23 @@ body {
   color: #5b625b;
 }
 
+.tabs {
+  border-bottom-color: #8a9b8c; /* Match your border color */
+}
+
+.tabs ul li a {
+  color: #2c332c; /* Your dark sage color for better contrast */
+}
+
 .tabs ul li.is-active a {
-  color: #f8b195;
-  border-bottom-color: #f8b195;
+  color: #b85c3c;
+  border-bottom-color: #b85c3c;
+  font-weight: bold;
 }
 
 .tabs ul li a:hover {
-  color: #f8b195;
-  border-bottom-color: #f8b195;
+  color: #b85c3c;
+  border-bottom-color: #b85c3c;
 }
 
 .text-special {

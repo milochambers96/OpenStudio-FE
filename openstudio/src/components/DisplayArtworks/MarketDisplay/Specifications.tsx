@@ -6,9 +6,11 @@ interface SpecProp {
 
 function Specifications({ artwork }: SpecProp) {
   return (
-    <div className="px-6 py-4">
-      <div className="content">
-        <h2 className="title is-5">Artwork Specifications</h2>
+    <div className="p-4">
+      <h2 className="os-subtitle-text is-size-2-desktop is-size-4-touch has-text-weight-bold">
+        Artwork Specifications
+      </h2>
+      <div className="content mt-2 os-body-text is-size-4-desktop is-size-6-touch">
         <ul>
           <li>
             <span className="has-text-weight-bold">Year created:</span>{" "}

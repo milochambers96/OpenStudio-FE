@@ -7,8 +7,10 @@ interface ArtworkArtistProp {
 function ArtworkArtistBio({ artwork }: ArtworkArtistProp) {
   return (
     <div className="px-6 py-4">
-      <div className="content">
-        <h2 className="title is-5">About the Artist</h2>
+      <h2 className="os-subtitle-text is-size-2-desktop is-size-4-touch has-text-weight-bold">
+        About the Artist
+      </h2>
+      <div className="content content mt-2 os-body-text is-size-4-desktop is-size-6-touch">
         {artwork?.artist.bio ? (
           <p>{artwork.artist.bio}</p>
         ) : (

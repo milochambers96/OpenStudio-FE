@@ -52,28 +52,28 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
   }
 
   return (
-    <section className="section mt-4 artwork-section">
+    <section className="section mt-4">
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-11">
-            <div className="box has-background-warning mt-6">
+            <div className="box os-content-bk mt-6">
               <div className="has-text-centered py-4 mb-2">
-                <h1 className="title">
+                <h1 className="title is-size-1-desktop is-size-4-touch os-title-text">
                   {artwork.title} by {artwork.artist.first_name}{" "}
                   {artwork.artist.last_name}
                 </h1>
               </div>
-              <div className="columns is-centered artwork-columns">
+              <div className="columns is-centered artwork-columns is-equal-height">
                 {artwork && (
-                  <div className="column is-5">
-                    <div className="box artwork-box">
+                  <div className="column is-5 is-flex">
+                    <div className="os-subcontent-bk is-flex is-flex-direction-column is-flex-grow-1">
                       <ImageCarousel images={imagesArray} />
                     </div>
                   </div>
                 )}
                 {artwork && (
-                  <div className="column is-7">
-                    <div className="box artwork-box">
+                  <div className="column is-7 is-flex">
+                    <div className="is-flex is-flex-direction-column is-flex-grow-1">
                       <ArtworkDetails artwork={artwork} member={member} />
                     </div>
                   </div>

@@ -57,18 +57,16 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
   };
 
   return (
-    <article className="artwork-details-container">
+    <article id="artwork-details-container" className="">
       <div
         className="artwork-details-content"
         style={styles.artworkDetailsContent}
       >
-        <div className="mt-2">
-          {/* <p className="title has-text-centered">
+        {/* <p className="title has-text-centered">
             {artwork?.title} by {artwork?.artist.first_name}{" "}
             {artwork?.artist.last_name}
           </p> */}
-        </div>
-        <div className="tabs is-centered mt-4">
+        <div className="tabs  is-centered mt-4">
           <ul>
             <li className={activeTab === "summary" ? "is-active" : ""}>
               <a onClick={() => setActiveTab("summary")}>Summary</a>
@@ -103,7 +101,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
       </div>
       <div className="artwork-details-actions">
         {member?.user_type === "collector" && (
-          <div className="is-flex is-justify-content-space-around">
+          <div className="is-flex is-justify-content-space-between p-4">
             {artwork?.is_for_sale ? (
               <PurchaseRequest
                 member={member}
@@ -111,10 +109,8 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
                 onShippingCalculated={handleShippingCalculated}
               />
             ) : (
-              <p>
-                <strong>
-                  This work is currently not available for purchase.
-                </strong>
+              <p className="os-body-text has-text-weight-semibold is-size-4-desktop">
+                This work is currently not available for purchase.
               </p>
             )}
             <CollectorGalleryActions member={member} artwork={artwork} />
