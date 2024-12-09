@@ -20,38 +20,48 @@ function StudioProfile({ member }: { member: IMember | null }) {
   };
 
   return (
-    <section className="section mt-5">
-      <div className="box os-content-bk mt-5">
-        <div className="mt-2 is-centered text-special">
-          <p className="title has-text-centered mb-1">{studioTitle}</p>
+    <>
+      <section className="hero">
+        <div id="studio-control-banner" className="py-4">
+          <div className="os-subcontent-bk my-4">
+            <div className="mt-2">
+              <h1 className="os-title-text has-text-weight-bold has-text-centered is-size-2">
+                {studioTitle}
+              </h1>
+            </div>
+            <div className="tabs is-centered has-text-weight-semibold">
+              <ul className="is-size-4-desktop">
+                <li className={activeTab === "artworks" ? "is-active" : ""}>
+                  <a onClick={() => setActiveTab("artworks")}>
+                    Studio Artworks
+                  </a>
+                </li>
+                <li className={activeTab === "upload" ? "is-active" : ""}>
+                  <a onClick={() => setActiveTab("upload")}>
+                    Upload an Artwork
+                  </a>
+                </li>
+                <li className={activeTab === "orders" ? "is-active" : ""}>
+                  <a onClick={() => setActiveTab("orders")}>Order Manager</a>
+                </li>
+                <li className={activeTab === "details" ? "is-active" : ""}>
+                  <a onClick={() => setActiveTab("details")}>Studio Details</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="tabs is-centered">
-          <ul>
-            <li className={activeTab === "artworks" ? "is-active" : ""}>
-              <a onClick={() => setActiveTab("artworks")}>Studio Artworks</a>
-            </li>
-            <li className={activeTab === "upload" ? "is-active" : ""}>
-              <a onClick={() => setActiveTab("upload")}>Upload an Artwork</a>
-            </li>
-            <li className={activeTab === "orders" ? "is-active" : ""}>
-              <a onClick={() => setActiveTab("orders")}>Order Manager</a>
-            </li>
-            <li className={activeTab === "details" ? "is-active" : ""}>
-              <a onClick={() => setActiveTab("details")}>Studio Details</a>
-            </li>
-          </ul>
-        </div>
+      </section>
 
-        <div className="scrollable-container">
-          {activeTab === "artworks" && <StudioArtworks memberId={member?.id} />}
-          {activeTab === "upload" && (
-            <StudioArtworkUpload onUploadSuccess={handleUploadSuccess} />
-          )}
-          {activeTab === "orders" && <StudioOrders />}
-          {activeTab === "details" && <StudioDetails />}
-        </div>
-      </div>
-    </section>
+      <section className="section">
+        {activeTab === "artworks" && <StudioArtworks memberId={member?.id} />}
+        {activeTab === "upload" && (
+          <StudioArtworkUpload onUploadSuccess={handleUploadSuccess} />
+        )}
+        {activeTab === "orders" && <StudioOrders />}
+        {activeTab === "details" && <StudioDetails />}
+      </section>
+    </>
   );
 }
 

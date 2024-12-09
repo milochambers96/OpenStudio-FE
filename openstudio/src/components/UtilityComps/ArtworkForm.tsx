@@ -87,236 +87,250 @@ function ArtworkForm({ initialData, onSubmit }: ArtworkFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="field">
-        <label className="label">Title</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Description</label>
-        <div className="control">
-          <textarea
-            className="textarea"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            maxLength={300}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Year Created</label>
-        <div className="control">
-          <input
-            className="input"
-            type="number"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-            min="0"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Price</label>
-        <div className="control">
-          <input
-            className="input"
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            step="0.01"
-            min="0"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Quantity for Sale</label>
-        <div className="control">
-          <input
-            className="input"
-            type="number"
-            name="quantity_for_sale"
-            value={formData.quantity_for_sale}
-            onChange={handleChange}
-            min="0"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Is for Sale</label>
-        <div className="control">
-          <div className="select">
-            <select
-              name="is_for_sale"
-              value={formData.is_for_sale ? "yes" : "no"}
-              onChange={handleChange}
-            >
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Medium</label>
-        <div className="control">
-          <div className="select">
-            <select
-              name="medium"
-              value={formData.medium}
-              onChange={handleChange}
-              required
-            >
-              <option value="painting">Painting</option>
-              <option value="sculpture">Sculpture</option>
-              <option value="digital_art">Digital Art</option>
-              <option value="photography">Photography</option>
-              <option value="mixed_media">Mixed Media</option>
-              <option value="printmaking">Printmaking</option>
-              <option value="ceramics">Ceramics</option>
-              <option value="textile">Textile Art</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Material(s)</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            name="material"
-            value={formData.material}
-            onChange={handleChange}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Dimensions (cm) and Weight (kg)</label>
-        <div className="columns">
-          <div className="column">
-            <label htmlFor="width" className="label">
-              Width (cm)
-            </label>
+    <div
+      id="artwork-form-container"
+      className="px-6 is-size-5 text-has-weight-bold"
+    >
+      <form onSubmit={handleSubmit} className="os-body-text">
+        <div className="field">
+          <label className="label">Artwork Title</label>
+          <div className="control">
             <input
-              id="width"
               className="input"
-              type="number"
-              name="width"
-              value={formData.width}
+              type="text"
+              name="title"
+              value={formData.title}
               onChange={handleChange}
-              step="0.01"
-              min="0.01"
-              required
-            />
-          </div>
-          <div className="column">
-            <label htmlFor="depth" className="label">
-              Depth (cm)
-            </label>
-            <input
-              id="depth"
-              className="input"
-              type="number"
-              name="depth"
-              value={formData.depth}
-              onChange={handleChange}
-              step="0.01"
-              min="0.01"
-              required
-            />
-          </div>
-          <div className="column">
-            <label htmlFor="height" className="label">
-              Height (cm)
-            </label>
-            <input
-              id="height"
-              className="input"
-              type="number"
-              name="height"
-              value={formData.height}
-              onChange={handleChange}
-              step="0.01"
-              min="0.01"
-              required
-            />
-          </div>
-          <div className="column">
-            <label htmlFor="weight" className="label">
-              Weight (kg)
-            </label>
-            <input
-              id="weight"
-              className="input"
-              type="number"
-              name="weight"
-              value={formData.weight}
-              onChange={handleChange}
-              step="0.01"
-              min="0.01"
               required
             />
           </div>
         </div>
-      </div>
 
-      <div className="field">
-        <label className="label">Images (up to 5)</label>
-        {selectedFiles.map((file, index) => (
-          <div key={index} className="file has-name is-fullwidth mb-2">
-            <label className="file-label">
+        <div className="field">
+          <label className="label">Description</label>
+          <div className="control">
+            <textarea
+              className="textarea"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              maxLength={300}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Year Created</label>
+          <div className="control">
+            <input
+              className="input"
+              type="number"
+              name="year"
+              value={formData.year}
+              onChange={handleChange}
+              min="0"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Price</label>
+          <div className="control">
+            <input
+              className="input"
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Quantity for Sale</label>
+          <div className="control">
+            <input
+              className="input"
+              type="number"
+              name="quantity_for_sale"
+              value={formData.quantity_for_sale}
+              onChange={handleChange}
+              min="0"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Is for Sale</label>
+          <div className="control">
+            <div className="select">
+              <select
+                name="is_for_sale"
+                value={formData.is_for_sale ? "yes" : "no"}
+                onChange={handleChange}
+              >
+                <option className="option" value="yes">
+                  Yes
+                </option>
+                <option className="option" value="no">
+                  No
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Medium</label>
+          <div className="control">
+            <div className="select">
+              <select
+                name="medium"
+                value={formData.medium}
+                onChange={handleChange}
+                required
+              >
+                <option value="painting">Painting</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="digital_art">Digital Art</option>
+                <option value="photography">Photography</option>
+                <option value="mixed_media">Mixed Media</option>
+                <option value="printmaking">Printmaking</option>
+                <option value="ceramics">Ceramics</option>
+                <option value="textile">Textile Art</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Material(s)</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              name="material"
+              value={formData.material}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="field">
+          <div className="columns">
+            <div className="column">
+              <label htmlFor="width" className="label">
+                Width (cm)
+              </label>
               <input
-                className="file-input"
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFileChange(e, index)}
+                id="width"
+                className="input"
+                type="number"
+                name="width"
+                value={formData.width}
+                onChange={handleChange}
+                step="0.01"
+                min="0.01"
+                required
               />
-              <span className="file-cta">
-                <span className="file-label">Choose image {index + 1}</span>
-              </span>
-              <span className="file-name">
-                {file ? file.name : "No file chosen"}
-              </span>
-            </label>
+            </div>
+            <div className="column">
+              <label htmlFor="depth" className="label">
+                Depth (cm)
+              </label>
+              <input
+                id="depth"
+                className="input"
+                type="number"
+                name="depth"
+                value={formData.depth}
+                onChange={handleChange}
+                step="0.01"
+                min="0.01"
+                required
+              />
+            </div>
+            <div className="column">
+              <label htmlFor="height" className="label">
+                Height (cm)
+              </label>
+              <input
+                id="height"
+                className="input"
+                type="number"
+                name="height"
+                value={formData.height}
+                onChange={handleChange}
+                step="0.01"
+                min="0.01"
+                required
+              />
+            </div>
+            <div className="column">
+              <label htmlFor="weight" className="label">
+                Weight (kg)
+              </label>
+              <input
+                id="weight"
+                className="input"
+                type="number"
+                name="weight"
+                value={formData.weight}
+                onChange={handleChange}
+                step="0.01"
+                min="0.01"
+                required
+              />
+            </div>
           </div>
-        ))}
-      </div>
-
-      {errors.general && <p className="help is-danger">{errors.general}</p>}
-
-      <div className="field">
-        <div className="control">
-          <button type="submit" className="button is-primary">
-            Submit Artwork
-          </button>
         </div>
-      </div>
-    </form>
+
+        <div className="field">
+          <label className="label">Images (up to 5)</label>
+          {selectedFiles.map((file, index) => (
+            <div key={index} className="file has-name is-fullwidth">
+              <label className="file-label">
+                <input
+                  className="file-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileChange(e, index)}
+                />
+                <span className="file-cta">
+                  <span className="file-label os-accent-text">
+                    Image {index + 1}
+                  </span>
+                </span>
+                <span className="file-name os-subtitle-text">
+                  {file ? file.name : "No file chosen"}
+                </span>
+              </label>
+            </div>
+          ))}
+        </div>
+
+        {errors.general && <p className="help is-danger">{errors.general}</p>}
+        <div className="columns is-centered py-6">
+          <div className="field">
+            <div className="control">
+              <button
+                type="submit"
+                className="button is-order is-size-5 has-text-weight-bold os-title-text"
+              >
+                Submit Artwork
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }
 

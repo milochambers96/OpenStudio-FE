@@ -51,15 +51,11 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
       };
 
       const token = localStorage.getItem("token");
-      await axios.post(
-        `${baseUrl}/artworks/create/`,
-        artworkData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.post(`${baseUrl}/artworks/create/`, artworkData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       onUploadSuccess();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -73,22 +69,22 @@ function StudioArtworkUpload({ onUploadSuccess }: StudioArtworkUploadProps) {
   };
 
   return (
-    <div className="section">
-      <div className="container">
-        <div className="columns is-centered">
-          <div className="column is-half">
-            {" "}
-            <h1 className="title">Upload New Artwork</h1>
-            {error && <div className="notification is-danger">{error}</div>}
-            {isLoading ? (
-              <div className="is-loading">Uploading artwork...</div>
-            ) : (
-              <ArtworkForm onSubmit={handleSubmit} />
-            )}
-          </div>
+    <article className="article">
+      <div className="columns is-centered">
+        <div className="column is-6 is-full-mobile os-content-bk box py-4">
+          {" "}
+          <h2 className="os-subtitle-text is-size-3 has-text-centered has-text-weight-bold pb-4">
+            Upload New Artwork
+          </h2>
+          {error && <div className="notification is-danger">{error}</div>}
+          {isLoading ? (
+            <div className="is-loading">Uploading artwork...</div>
+          ) : (
+            <ArtworkForm onSubmit={handleSubmit} />
+          )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

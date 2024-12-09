@@ -74,6 +74,7 @@ body {
   font-family: "Caveat", cursive;
   font-optical-sizing: auto;
   font-style: normal;
+  font-size: 1.25rem;
 }
 
 .checkbox {
@@ -91,7 +92,8 @@ body {
   box-shadow: 0 0 0 0.125em rgba(91, 138, 157, 0.25);
 }
 
-select {
+select,
+option {
   background-color: #2c3e50;
   border: 2px solid #f8b195;
   color: #ffffff;
@@ -115,6 +117,12 @@ select {
 
 .is-order {
   background-color: #6b8e6b;
+}
+
+.label {
+  color: #9a958f;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 /* loader styles */

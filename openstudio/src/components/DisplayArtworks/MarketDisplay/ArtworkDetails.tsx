@@ -97,7 +97,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
       </div>
       <div className="artwork-details-actions">
         {member?.user_type === "collector" && (
-          <div className="is-flex is-justify-content-space-between  is-align-items-center px-5">
+          <div className="is-flex is-justify-content-space-around  is-align-items-center px-5">
             {artwork?.is_for_sale ? (
               <PurchaseRequest
                 member={member}
@@ -124,8 +124,8 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
               <Link to={`/artwork/${artworkId}/edit-details`}>
                 <button className="button is-link">Update Artwork</button>
               </Link>
-              <button className="button is-danger" onClick={deleteArtwork}>
-                Delete Artwork
+              <button className="button is-destroy" onClick={deleteArtwork}>
+                Remove Artwork
               </button>
             </div>
           </>

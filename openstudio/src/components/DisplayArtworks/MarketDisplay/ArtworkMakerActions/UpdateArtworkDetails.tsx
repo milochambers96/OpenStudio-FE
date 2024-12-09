@@ -118,23 +118,18 @@ function UpdateArtworkDetails({ memberId }: UpdateArtworkProp) {
   if (!artworkInfo) return <div>Artwork not found.</div>;
 
   return (
-    <div className="section">
-      <div className="section mt-5">
-        <div className="container mt-5">
-          <div className="columns is-centered">
-            <div className="column is-two-thirds">
-              <div className="box scrollable-container">
-                <h1 className="title">Update Artwork Details</h1>
-                <ArtworkForm
-                  initialData={artworkInfo}
-                  onSubmit={handleSubmit}
-                />
-              </div>
-            </div>
+    <section className="section">
+      <article className="article">
+        <div className="columns is-centered mt-6">
+          <div className="column is-6 is-6 is-full-mobile os-content-bk box py-4">
+            <h1 className="os-title-text is-size-3 has-text-centered has-text-weight-bold pb-4">
+              Update Artwork Details
+            </h1>
+            <ArtworkForm initialData={artworkInfo} onSubmit={handleSubmit} />
           </div>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }
 
