@@ -89,8 +89,10 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
           ) : null}
         </div>
         {shippingInfo && (
-          <div className="shipping-info mt-2" style={styles.alignWithContent}>
-            <h3 className="title is-6">Shipping Information</h3>
+          <div className="shipping-info p-4">
+            <h3 className="os-subtitle-text is-size-3 is-size-5-touch has-text-weight-bold">
+              Shipping Information
+            </h3>
             {shippingInfo}
           </div>
         )}

@@ -51,10 +51,12 @@ function PurchaseRequest({
       setError(null);
 
       onShippingCalculated(
-        <div>
+        <div className="content mt-4 os-body-text has-text-weight-semibold">
           <p>Artwork Price: £{artwork.price.toFixed(2)}</p>
           <p>Shipping Cost: £{costs.totalShippingCost.toFixed(2)}</p>
-          <p>Total Price: £{costs.totalPrice.toFixed(2)}</p>
+          <p className="has-text-weight-bold is-size-4 os-accent-text">
+            Final Price: £{costs.totalPrice.toFixed(2)}
+          </p>
         </div>
       );
     } catch (error) {
@@ -101,13 +103,13 @@ function PurchaseRequest({
       {error && <p className="has-text-danger">{error}</p>}
       {isRequested ? (
         <div>
-          <Link to="/gallery" className="button is-primary">
+          <Link to="/gallery" className="button os-accent-bk">
             Request Sent
           </Link>
         </div>
       ) : step === "initial" ? (
         <button
-          className="button is-primary"
+          className="button is-order "
           onClick={calculateShipping}
           disabled={isRequested}
         >
@@ -115,7 +117,7 @@ function PurchaseRequest({
         </button>
       ) : (
         <button
-          className="button is-primary"
+          className="button is-order"
           onClick={sendPurchaseRequest}
           disabled={isRequested}
         >
