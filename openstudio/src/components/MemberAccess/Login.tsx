@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
-import { useNavigate, } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { baseUrl } from "../../config";
 
@@ -54,7 +54,7 @@ function Login({ fetchMember }: LoginProps) {
   }
 
   return (
-    <div className="section mt-5">
+    <article className="article">
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-half-desktop is-three-quarters-tablet is-full-mobile">
@@ -104,7 +104,7 @@ function Login({ fetchMember }: LoginProps) {
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

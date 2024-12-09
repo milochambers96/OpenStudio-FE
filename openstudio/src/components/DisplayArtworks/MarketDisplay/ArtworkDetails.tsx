@@ -62,10 +62,6 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
         className="artwork-details-content"
         style={styles.artworkDetailsContent}
       >
-        {/* <p className="title has-text-centered">
-            {artwork?.title} by {artwork?.artist.first_name}{" "}
-            {artwork?.artist.last_name}
-          </p> */}
         <div className="tabs  is-centered mt-4">
           <ul className="is-size-4-desktop">
             <li className={activeTab === "summary" ? "is-active" : ""}>
