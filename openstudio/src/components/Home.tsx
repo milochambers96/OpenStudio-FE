@@ -1,12 +1,12 @@
 function Home() {
   return (
-    <section className="ostudio-bk is-flex is-justify-content-center is-align-items-center">
-      <div className="has-text-centered">
-        <h1 className="title text-special is-1">OpenStudio</h1>
-        <span className="title text-special is-4">
-          Democratising Art, <br></br> Empowering Creativity
-        </span>
-        <h2></h2>
+    <section className="hero is-fullheight is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+      <h1 className="is-size-1 has-text-weight-bold os-title-text">
+        OpenStudio
+      </h1>
+      <div className="is-flex is-flex-direction-column is-justify-content-center is-align-items-center is-size-4 has-text-weight-semibold os-subtitle-text">
+        <h2>Democratising Art,</h2>
+        <h2>Empowering Creativity</h2>
       </div>
     </section>
   );
