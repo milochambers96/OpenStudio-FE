@@ -67,7 +67,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
             {artwork?.artist.last_name}
           </p> */}
         <div className="tabs  is-centered mt-4">
-          <ul>
+          <ul className="is-size-4-desktop">
             <li className={activeTab === "summary" ? "is-active" : ""}>
               <a onClick={() => setActiveTab("summary")}>Summary</a>
             </li>
@@ -101,7 +101,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
       </div>
       <div className="artwork-details-actions">
         {member?.user_type === "collector" && (
-          <div className="is-flex is-justify-content-space-between p-4">
+          <div className="is-flex is-justify-content-space-between  is-align-items-center px-5">
             {artwork?.is_for_sale ? (
               <PurchaseRequest
                 member={member}
@@ -109,8 +109,8 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
                 onShippingCalculated={handleShippingCalculated}
               />
             ) : (
-              <p className="os-body-text has-text-weight-semibold is-size-4-desktop">
-                This work is currently not available for purchase.
+              <p className="os-body-text has-text-weight-semibold is-size-4-desktop is-size-7-touch">
+                Artwork is not available for purchase.
               </p>
             )}
             <CollectorGalleryActions member={member} artwork={artwork} />

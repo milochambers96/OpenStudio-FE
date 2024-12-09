@@ -78,15 +78,15 @@ function CollectorGalleryActions({ member, artwork }: CollectorActionProps) {
 
   return (
     <div>
-      {isInGallery ? (
-        <button className="button is-danger" onClick={removeFromGallery}>
-          Remove from Gallery
-        </button>
-      ) : (
-        <button className="button is-link" onClick={addToGallery}>
-          Add to Gallery
-        </button>
-      )}
+      <button
+        className={`button is-small-mobile ${
+          isInGallery ? "is-destroy" : "is-link"
+        }`}
+        onClick={isInGallery ? removeFromGallery : addToGallery}
+        title={isInGallery ? "Remove from Gallery" : "Add to Gallery"}
+      >
+        Gallery {isInGallery ? "−" : "+"}
+      </button>
     </div>
   );
 }
