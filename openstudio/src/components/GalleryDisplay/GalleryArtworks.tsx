@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import { baseUrl } from "../../config";
 
@@ -60,9 +61,28 @@ function GalleryArtworks() {
   if (isLoading) return <SectionLoader />;
   if (error) return <p className="has-text-danger">{error}</p>;
 
+  const noSavedWorkMessage = () => {
+    return (
+      <div className="has-text-centered-desktop has-text-justifed-touch is-size-3-desktop is-size-5-touch os-body-text">
+        <h4>Your gallery is waiting for its first masterpiece.</h4>
+        <h4 className="mt-4">
+          Visit the{" "}
+          <Link to="/marketplace" className="is-link-text">
+            Marketplace
+          </Link>{" "}
+          to discover and curate your collection.
+        </h4>
+      </div>
+    );
+  };
+
   return (
-    <div>
-      <h2 className="title text-special has-text-centered is-4">Saved works</h2>
+    <article className="article">
+      <div className="mb-6">
+        <h2 className="is-size-2-desktop is-size-3-touch has-text-centered has-text-weight-bold os-subtitle-text">
+          Works on Display
+        </h2>
+      </div>
       {galleryArtworks && galleryArtworks.length > 0 ? (
         <>
           <div className="columns is-multiline">
@@ -107,9 +127,9 @@ function GalleryArtworks() {
           </nav>
         </>
       ) : (
-        <p>No artworks in your gallery yet.</p>
+        noSavedWorkMessage()
       )}
-    </div>
+    </article>
   );
 }
 

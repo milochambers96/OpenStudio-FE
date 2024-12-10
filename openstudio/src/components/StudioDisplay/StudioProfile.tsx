@@ -54,7 +54,13 @@ function StudioProfile({ member }: { member: IMember | null }) {
       </section>
 
       <section className="section">
-        {activeTab === "artworks" && <StudioArtworks memberId={member?.id} />}
+        {activeTab === "artworks" && (
+          <StudioArtworks
+            memberId={member?.id}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+        )}
         {activeTab === "upload" && (
           <StudioArtworkUpload onUploadSuccess={handleUploadSuccess} />
         )}

@@ -87,24 +87,18 @@ body {
 }
 
 .input:focus,
-.textarea:focus {
+.textarea:focus,
+.select select:focus {
   border-color: #5b8a9d;
   box-shadow: 0 0 0 0.125em rgba(91, 138, 157, 0.25);
 }
 
-select,
-option {
-  background-color: #2c3e50;
-  border: 2px solid #f8b195;
-  color: #ffffff;
+.select select {
+  background-color: #2a2a2a;
+  border: 2px solid #666666;
+  color: #e5e1dd;
   font-family: "Caveat", cursive;
-  font-optical-sizing: auto;
-  font-style: normal;
-  padding: 0.5em 1em;
-  border-radius: 4px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  font-size: 1.25rem;
 }
 
 .is-destroy {
@@ -117,6 +111,14 @@ option {
 
 .is-order {
   background-color: #6b8e6b;
+}
+
+.is-link-text {
+  color: #5b8a9d;
+}
+
+.is-link-text:hover {
+  cursor: pointer;
 }
 
 .label {

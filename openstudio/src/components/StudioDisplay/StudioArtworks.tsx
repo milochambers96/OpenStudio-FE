@@ -12,9 +12,11 @@ type Artworks = null | Array<IArtwork>;
 
 interface StudioArtworkProps {
   memberId: number | undefined;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-function StudioArtworks({ memberId }: StudioArtworkProps) {
+function StudioArtworks({ memberId, setActiveTab }: StudioArtworkProps) {
   const [studioArtworks, setStudioArtworks] = useState<Artworks>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -68,11 +70,31 @@ function StudioArtworks({ memberId }: StudioArtworkProps) {
     currentPage * itemsPerPage
   );
 
+  const noUploadedWorkMessage = () => {
+    return (
+      <div className="has-text-centered-desktop has-text-justifed-touch is-size-3-desktop is-size-5-touch os-body-text">
+        <h4>Your studio awaits its first creation.</h4>
+        <h4 className="mt-4">
+          Share your work with the world -{" "}
+          <span
+            className="is-link-text has-cursor-pointer"
+            onClick={() => setActiveTab("upload")}
+          >
+            upload
+          </span>{" "}
+          your first artwork.
+        </h4>
+      </div>
+    );
+  };
+
   return (
-    <div>
-      <h2 className="subtitle text-special has-text-centered is-4">
-        Studio Artworks
-      </h2>
+    <article className="article">
+      <div className="mb-6 pb-4">
+        <h2 className="is-size-2-desktop is-size-3-touch has-text-centered has-text-weight-bold os-subtitle-text">
+          Shared Artworks
+        </h2>
+      </div>
       {paginatedArtworks && paginatedArtworks.length > 0 ? (
         <>
           <div className="columns is-multiline">
@@ -117,9 +139,9 @@ function StudioArtworks({ memberId }: StudioArtworkProps) {
           </nav>
         </>
       ) : (
-        <p>You haven't uploaded any artworks yet.</p>
+        noUploadedWorkMessage()
       )}
-    </div>
+    </article>
   );
 }
 

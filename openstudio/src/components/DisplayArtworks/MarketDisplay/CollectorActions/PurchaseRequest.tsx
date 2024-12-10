@@ -54,7 +54,7 @@ function PurchaseRequest({
         <div className="content mt-4 os-body-text has-text-weight-semibold">
           <p>Artwork Price: £{artwork.price.toFixed(2)}</p>
           <p>Shipping Cost: £{costs.totalShippingCost.toFixed(2)}</p>
-          <p className="has-text-weight-bold is-size-4 os-accent-text">
+          <p className="has-text-weight-bold is-size-4 os-title-text">
             Final Price: £{costs.totalPrice.toFixed(2)}
           </p>
         </div>
@@ -103,7 +103,7 @@ function PurchaseRequest({
       {error && <p className="has-text-danger">{error}</p>}
       {isRequested ? (
         <div>
-          <Link to="/gallery" className="button os-accent-bk">
+          <Link to="/gallery" className="button is-link">
             Request Sent
           </Link>
         </div>
