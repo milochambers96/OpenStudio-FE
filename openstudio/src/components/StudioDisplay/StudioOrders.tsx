@@ -8,10 +8,12 @@ import { IOrder } from "../../interfaces/order";
 import SectionLoader from "../UtilityComps/SectionLoader";
 import OrdersTable from "../UtilityComps/OrderTable";
 
-type Orders = null | Array<IOrder>;
+interface StudioOrdersProp {
+  setActiveTab: (tab: string) => void;
+}
 
-function StudioOrders() {
-  const [studioOrders, setStudioOrders] = useState<Orders>(null);
+function StudioOrders({ setActiveTab }: StudioOrdersProp) {
+  const [studioOrders, setStudioOrders] = useState<IOrder[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [error, setError] = useState<string | null>(null);
@@ -176,12 +178,36 @@ function StudioOrders() {
   if (isLoading) return <SectionLoader />;
   if (error) return <p className="has-text-danger">{error}</p>;
 
+  const noOrderSellerMessage = () => {
+    return (
+      <div className="has-text-centered-desktop has-text-justifed-touch is-size-3-desktop is-size-4-touch os-body-text">
+        <h2>
+          No purchase requests have been received yet, but adding new artwork is
+          the best way to attract customers.
+        </h2>
+        <h2 className="mt-4">
+          <span
+            className="is-link-text has-cursor-pointer"
+            onClick={() => setActiveTab("upload")}
+          >
+            Upload
+          </span>{" "}
+          some new pieces to help your work find its audience.
+        </h2>
+      </div>
+    );
+  };
+
   return (
     <div>
-      <h2 className="title text-special has-text-centered is-4">Order Table</h2>
+      {studioOrders.length > 0 && (
+        <h2 className="has-text-centered is-size-2 os-subtitle-text has-text-weight-bold">
+          Orders
+        </h2>
+      )}
       {error && <p className="has-text-danger">{error}</p>}
       {successMessage && <p className="has-text-success">{successMessage}</p>}
-      {studioOrders && studioOrders.length > 0 ? (
+      {studioOrders.length > 0 ? (
         <OrdersTable
           orders={studioOrders}
           userType="seller"
@@ -190,7 +216,7 @@ function StudioOrders() {
           onShip={shipOrder}
         />
       ) : (
-        <p>You haven't received any purchase requests yet.</p>
+        noOrderSellerMessage()
       )}
     </div>
   );
