@@ -180,7 +180,7 @@ function StudioOrders({ setActiveTab }: StudioOrdersProp) {
 
   const noOrderSellerMessage = () => {
     return (
-      <div className="has-text-centered-desktop has-text-justifed-touch is-size-3-desktop is-size-4-touch os-body-text">
+      <div className="has-text-centered-desktop has-text-justifed-touch is-size-3-desktop is-size-4-touch os-subtitle-text">
         <h2>
           No purchase requests have been received yet, but adding new artwork is
           the best way to attract customers.
@@ -199,7 +199,7 @@ function StudioOrders({ setActiveTab }: StudioOrdersProp) {
   };
 
   return (
-    <div>
+    <article className="article">
       {studioOrders.length > 0 && (
         <h2 className="has-text-centered is-size-2 os-subtitle-text has-text-weight-bold">
           Orders
@@ -218,7 +218,7 @@ function StudioOrders({ setActiveTab }: StudioOrdersProp) {
       ) : (
         noOrderSellerMessage()
       )}
-    </div>
+    </article>
   );
 }
 

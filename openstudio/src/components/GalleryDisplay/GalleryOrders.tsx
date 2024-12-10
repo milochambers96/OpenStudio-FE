@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { baseUrl } from "../../config";
 
@@ -11,10 +11,8 @@ import OrdersTable from "../UtilityComps/OrderTable";
 import PaymentForm from "./PaymentForm";
 import PaymentSuccessMessage from "./PaymentSuccess";
 
-type Orders = null | Array<IOrder>;
-
 function GalleryOrders() {
-  const [galleryOrders, setGalleryOrders] = useState<Orders>(null);
+  const [galleryOrders, setGalleryOrders] = useState<IOrder[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -152,11 +150,31 @@ function GalleryOrders() {
   if (isLoading) return <SectionLoader />;
   if (error) return <p className="has-text-danger">{error}</p>;
 
+  const noOrderBuyerMessage = () => {
+    return (
+      <div className="has-text-centered-desktop has-text-justifed-touch is-size-3-desktop is-size-4-touch os-subtitle-text">
+        <h2>
+          It looks like you haven't sent any purchase requests yet. Purchasing
+          artwork is the best way to support the artists you love.
+        </h2>
+        <h2 className="mt-4">
+          Browse the{" "}
+          <Link to="/marketplace" className="is-link-text">
+            marketplace
+          </Link>{" "}
+          to discover the next masterpiece to add to your collection.
+        </h2>
+      </div>
+    );
+  };
+
   return (
-    <div>
-      <h2 className="title text-special has-text-centered is-4">
-        Your Order requests
-      </h2>
+    <article className="article">
+      {galleryOrders?.length > 0 && (
+        <h2 className="has-text-centered is-size-2 os-subtitle-text has-text-weight-bold">
+          Purchase requests
+        </h2>
+      )}
       {error && <p className="has-text-danger">{error}</p>}
       {successMessage && <p className="has-text-success">{successMessage}</p>}
       {paymentSuccess ? (
@@ -178,9 +196,9 @@ function GalleryOrders() {
           onPay={purchaseArtwork}
         />
       ) : (
-        <p>You haven't sent any purchase requests yet.</p>
+        noOrderBuyerMessage()
       )}
-    </div>
+    </article>
   );
 }
 
