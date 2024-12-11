@@ -596,6 +596,32 @@ export const calculateShippingCost = ({
 - Benefits of modular development approach
 - Impact of user-focused decision making
 
+# Post-Sprint Enhancements
+
+## December 2024
+
+### Responsive Design Improvements
+
+After the initial sprint, I took the time to ensure the application is fully responsive and optimised for mobile devices. By leveraging Bulma's utility classes, I was able to create a consistent and adaptive user experience across different screen sizes.
+
+The key changes made include:
+
+- Applying responsive layout classes (e.g., `is-desktop`, `is-touch`) to ensure proper scaling and element positioning on mobile and desktop.
+- Adjusting font sizes, padding, and margins to maintain readability and visual balance on smaller screens.
+- Optimising the image carousel and other visual components to provide an optimal viewing experience on mobile devices.
+
+### Updated Colour Scheme
+
+Based on my recent visit to the Turbine Hall at the Tate Modern, I was inspired to update the application's colour scheme to a more concrete-inspired palette. The previous peach and blue gradient, while visually appealing, sometimes overshadowed the artwork itself.
+
+The new colour scheme features a more neutral, minimal background that allows the artwork to take centre stage. The key changes include:
+
+- Updating the primary background colour to a muted, concrete-like shade.
+- Adjusting the table and other UI elements to complement the new background colour.
+- Ensuring the text and interactive components maintain sufficient contrast for improved readability.
+
+This updated colour scheme not only aligns with the artistic inspiration from the Turbine Hall but also creates a cleaner, more focused user experience that emphasises the artwork and the overall marketplace.
+
 # Deployment
 
 The live application can be accessed at [OpenStudio](https://openstudio.netlify.app/).
