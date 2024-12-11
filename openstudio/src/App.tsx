@@ -26,12 +26,23 @@ function App() {
   async function fetchMember() {
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
       const response = await axios.get(`${baseUrl}/members/user/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMember(response.data);
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Error fetching member:",
+          error.response?.status,
+          error.response?.data
+        );
+      } else {
+        console.error("Error fetching member:", error);
+      }
     }
   }
 
