@@ -2,6 +2,8 @@ import { IOrder } from "../../interfaces/order";
 
 import "../../styles/OrdersTableStyles.css";
 
+import OrderButtons from "../UtilityComps/OrderButtons";
+
 interface OrdersTableProps {
   orders: IOrder[];
   userType: "buyer" | "seller";
@@ -20,7 +22,7 @@ function OrdersTable({
   onPay,
 }: OrdersTableProps) {
   return (
-    <div className="table-container">
+    <div className="table-container mt-6">
       <table className="table is-fullwidth is-striped is-hoverable custom-table">
         <thead>
           <tr>
@@ -49,75 +51,15 @@ function OrdersTable({
                   : "N/A"}
               </td>
               <td>
-                <div className="buttons are-small">
-                  {order.status === "cancelled" ? (
-                    <button className="button is-static" disabled>
-                      No Action Required
-                    </button>
-                  ) : order.status === "shipped" ? (
-                    <button className="button is-static" disabled>
-                      Artwork In Transit
-                    </button>
-                  ) : userType === "buyer" ? (
-                    <>
-                      {(order.status === "pending" ||
-                        order.status === "accepted") &&
-                        onCancel && (
-                          <button
-                            className="button is-danger"
-                            onClick={() => onCancel(order.id)}
-                          >
-                            Cancel
-                          </button>
-                        )}
-                      {order.status === "accepted" && onPay && (
-                        <button
-                          className="button is-success"
-                          onClick={() => onPay(order.id)}
-                        >
-                          Pay
-                        </button>
-                      )}
-                      {order.status === "ready to ship" && (
-                        <button className="button is-static" disabled>
-                          Awaiting Shipment
-                        </button>
-                      )}
-                    </>
-                  ) : userType === "seller" ? (
-                    <>
-                      {order.status === "pending" && onCancel && onAccept && (
-                        <div className="button-container">
-                          <button
-                            className="button is-danger is-small"
-                            onClick={() => onCancel(order.id)}
-                          >
-                            Reject
-                          </button>
-                          <button
-                            className="button is-success is-small"
-                            onClick={() => onAccept(order.id)}
-                          >
-                            Accept
-                          </button>
-                        </div>
-                      )}
-                      {order.status === "accepted" && (
-                        <button className="button is-static" disabled>
-                          Awaiting Payment
-                        </button>
-                      )}
-                      {order.status === "ready to ship" && onShip && (
-                        <button
-                          className="button is-link"
-                          onClick={() => onShip(order.id)}
-                        >
-                          Mark as Shipped
-                        </button>
-                      )}
-                    </>
-                  ) : null}
-                </div>
+                <OrderButtons
+                  oStatus={order.status}
+                  oID={order.id}
+                  userType={userType}
+                  onCancel={onCancel}
+                  onAccept={onAccept}
+                  onPay={onPay}
+                  onShip={onShip}
+                />
               </td>
             </tr>
           ))}
