@@ -176,7 +176,12 @@ function GalleryOrders() {
         </h2>
       )}
       {error && <p className="has-text-danger">{error}</p>}
-      {successMessage && <p className="has-text-success">{successMessage}</p>}
+      {successMessage &&
+        successMessage !== "Payment successful, order is ready to ship." && (
+          <p className="has-text-success has-text-centered ">
+            {successMessage}
+          </p>
+        )}
       {paymentSuccess ? (
         <PaymentSuccessMessage
           orderId={selectedOrderId!.toString()}
