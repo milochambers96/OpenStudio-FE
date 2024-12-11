@@ -21,7 +21,7 @@ const OrderButtons = ({
     const buttonMessage =
       oStatus === "cancelled" ? "Order Cancelled" : "In Transit";
     return (
-      <button className="button is-static" disabled>
+      <button className="button is-static is-small" disabled>
         {buttonMessage}
       </button>
     );
@@ -62,7 +62,7 @@ const OrderButtons = ({
 
     if (oStatus === "ready to ship") {
       return (
-        <button className="button is-static" disabled>
+        <button className="button is-static is-small" disabled>
           Awaiting Shipment
         </button>
       );
@@ -93,7 +93,7 @@ const OrderButtons = ({
 
     if (oStatus === "accepted") {
       return (
-        <button className="button is-static" disabled>
+        <button className="button is-static is-small" disabled>
           Awaiting Payment
         </button>
       );
@@ -101,7 +101,10 @@ const OrderButtons = ({
 
     if (oStatus === "ready to ship" && onShip) {
       return (
-        <button className="button is-link" onClick={() => onShip(oID)}>
+        <button
+          className="button is-order is-small"
+          onClick={() => onShip(oID)}
+        >
           Mark as Shipped
         </button>
       );

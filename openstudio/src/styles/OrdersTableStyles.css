@@ -1,19 +1,12 @@
 .custom-table {
-  background-color: #16202a;
+  background-color: #54515b;
 }
 
 .custom-table-row {
-  background-color: #2c3e50;
+  background-color: #797580;
   transition: background-color 0.3s ease;
 }
 
 .custom-table-row:hover {
-  background-color: #f8b19597 !important;
-}
-
-.buttons.is-small {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  align-items: center;
+  background-color: #937264 !important;
 }

@@ -22,9 +22,9 @@ function OrdersTable({
   onPay,
 }: OrdersTableProps) {
   return (
-    <div className="table-container mt-6">
+    <article className="article os-content-bk box table-container mt-6">
       <table className="table is-fullwidth is-striped is-hoverable custom-table">
-        <thead>
+        <thead className="is-size-4">
           <tr>
             <th className="is-narrow">Order ID</th>
             <th>Artwork</th>
@@ -36,7 +36,7 @@ function OrdersTable({
             <th className="is-narrow">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="is-size-5">
           {orders.map((order) => (
             <tr key={order.id} className="custom-table-row">
               <td>{order.id}</td>
@@ -65,7 +65,7 @@ function OrdersTable({
           ))}
         </tbody>
       </table>
-    </div>
+    </article>
   );
 }
 
