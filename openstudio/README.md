@@ -610,17 +610,36 @@ The key changes made include:
 - Adjusting font sizes, padding, and margins to maintain readability and visual balance on smaller screens.
 - Optimising the image carousel and other visual components to provide an optimal viewing experience on mobile devices.
 
-### Updated Colour Scheme
+### Industrial Gallery Design Implementation
 
-Based on my recent visit to the Turbine Hall at the Tate Modern, I was inspired to update the application's colour scheme to a more concrete-inspired palette. The previous peach and blue gradient, while visually appealing, sometimes overshadowed the artwork itself.
+Inspired by the Tate Modern's Turbine Hall, I implemented a sophisticated SVG-based concrete texture and color scheme that transforms the application into an authentic gallery space. The design combines an industrial concrete aesthetic with careful attention to how artwork is displayed.
 
-The new colour scheme features a more neutral, minimal background that allows the artwork to take centre stage. The key changes include:
+The implementation features:
 
-- Updating the primary background colour to a muted, concrete-like shade.
-- Adjusting the table and other UI elements to complement the new background colour.
-- Ensuring the text and interactive components maintain sufficient contrast for improved readability.
+- A dynamic SVG-based concrete texture using:
+  - Subtle base concrete pattern using fractal noise
+  - Realistic studio wear marks and paint splatters
+  - Paint drips and marks suggesting a working studio space
+- A refined color palette:
+  - Neutral #404040 concrete-inspired base
+  - Carefully balanced contrast for readability
+  - Minimalist approach that emphasizes artwork
 
-This updated colour scheme not only aligns with the artistic inspiration from the Turbine Hall but also creates a cleaner, more focused user experience that emphasises the artwork and the overall marketplace.
+Technical implementation:
+
+```typescript
+// SVG-based concrete texture with studio effects
+const ConcreteBackground = ({ children }: ConcreteBackgroundProps) => {
+  return (
+    <div style={{ position: "relative", minHeight: "100vh" }}>
+      {/* SVG texture layer with concrete base and studio marks */}
+      {/* Content layer with proper z-index positioning */}
+    </div>
+  );
+};
+```
+
+This design update replaces the previous peach and blue gradient with an environment that better reflects the platform's artistic purpose (i.e. supporting modern and contemporary artwork), creating a more authentic gallery/studio experience while maintaining optimal functionality and user experience.
 
 # Deployment
 
