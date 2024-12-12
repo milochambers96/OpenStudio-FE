@@ -5,7 +5,8 @@ import axios from "axios";
 
 import { baseUrl } from "./config";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Layout/Navbar";
+import Layout from "./components/Layout/Layout";
 import Home from "./components/Home";
 import MemberAccess from "./components/MemberAccess/MemberAccess";
 import ArtworkList from "./components/DisplayArtworks/Marketplace/ArtworksList";
@@ -70,36 +71,36 @@ function App() {
     }
   }, [member]);
 
-  console.log("The member is:", member);
-
   return (
     <Router>
-      <Navbar
-        member={member}
-        setMember={setMember}
-        isArtist={isArtist}
-        isCollector={isCollector}
-      />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/member-access"
-          element={<MemberAccess fetchMember={fetchMember} />}
+      <Layout>
+        <Navbar
+          member={member}
+          setMember={setMember}
+          isArtist={isArtist}
+          isCollector={isCollector}
         />
-        <Route path="/marketplace" element={<ArtworkList />} />
-        <Route path="/studio" element={<StudioProfile member={member} />} />
-        <Route path="/gallery" element={<GalleryProfile member={member} />} />
-        <Route path="/about" element={<About />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/member-access"
+            element={<MemberAccess fetchMember={fetchMember} />}
+          />
+          <Route path="/marketplace" element={<ArtworkList />} />
+          <Route path="/studio" element={<StudioProfile member={member} />} />
+          <Route path="/gallery" element={<GalleryProfile member={member} />} />
+          <Route path="/about" element={<About />} />
 
-        <Route
-          path="/artwork/:id"
-          element={<SpecificArtwork member={member} />}
-        />
-        <Route
-          path="/artwork/:artworkId/edit-details"
-          element={<UpdateArtworkDetails memberId={member?.id} />}
-        />
-      </Routes>
+          <Route
+            path="/artwork/:id"
+            element={<SpecificArtwork member={member} />}
+          />
+          <Route
+            path="/artwork/:artworkId/edit-details"
+            element={<UpdateArtworkDetails memberId={member?.id} />}
+          />
+        </Routes>
+      </Layout>
     </Router>
   );
 }

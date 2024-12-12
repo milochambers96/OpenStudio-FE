@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-import { baseUrl } from "../config";
+import { baseUrl } from "../../config";
 
-import "../styles/NavbarStyles.css";
+import "../../styles/NavbarStyles.css";
 
 function NavbarNotification() {
   const [hasUnviewedOrders, setHasUnviewedOrders] = useState(false);

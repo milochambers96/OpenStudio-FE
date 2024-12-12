@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { IMember } from "../interfaces/member";
+import { IMember } from "../../interfaces/member";
 import NavbarNotification from "./NavbarNotifications";
 import { useState } from "react";
 
-import "../styles/NavbarStyles.css";
+import "../../styles/NavbarStyles.css";
 
 interface NavbarProps {
   member: null | IMember;

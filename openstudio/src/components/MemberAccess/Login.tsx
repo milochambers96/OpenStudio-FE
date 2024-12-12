@@ -34,8 +34,7 @@ function Login({ fetchMember }: LoginProps) {
       if ("gallery_id" in response.data) {
         localStorage.setItem("gallery_id", response.data.gallery_id);
       }
-      fetchMember();
-
+      await fetchMember();
       navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
@@ -44,6 +43,10 @@ function Login({ fetchMember }: LoginProps) {
           setFormErrors(data.errors);
         } else if (data.message) {
           setFormErrors([data.message]);
+        } else if (data.detail === "Invalid authorization token") {
+          setFormErrors([
+            "Invalid authorization token. Please try logging in again.",
+          ]);
         } else {
           setFormErrors(["An unexpected error occurred. Please try again."]);
         }
