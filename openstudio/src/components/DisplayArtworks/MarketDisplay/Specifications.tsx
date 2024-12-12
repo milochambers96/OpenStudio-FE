@@ -5,6 +5,12 @@ interface SpecProp {
 }
 
 function Specifications({ artwork }: SpecProp) {
+  const capitalizeData = (info: string | null | undefined) => {
+    if (!info) return null;
+    const firstLetter = info.slice(0, 1).toUpperCase();
+    const capitalizedInfo = info.replace(info[0], firstLetter);
+    return capitalizedInfo;
+  };
   return (
     <div className="p-4">
       <h2 className="os-subtitle-text is-size-2-desktop is-size-4-touch has-text-weight-bold">
@@ -17,12 +23,12 @@ function Specifications({ artwork }: SpecProp) {
             {artwork?.year}
           </li>
           <li>
-            <span className="has-text-weight-bold">Price (USD):</span>{" "}
+            <span className="has-text-weight-bold">Price (GBP):</span>{" "}
             {artwork?.price}
           </li>
           <li>
             <span className="has-text-weight-bold">Medium:</span>{" "}
-            {artwork?.medium}
+            {capitalizeData(artwork?.medium)}
           </li>
           <li>
             <span className="has-text-weight-bold">Material(s):</span>{" "}

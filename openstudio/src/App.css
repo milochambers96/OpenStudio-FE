@@ -1,5 +1,12 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+/* Orignal design forn */
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+
+/* New font-hierarchy */
+/* Vietnam Pro Import */
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Caveat:wght@400..700&display=swap");
+/* Space Grotesk */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap");
 
 body {
   /* background: #404040; */
@@ -31,10 +38,12 @@ body {
 
 .os-title-text {
   color: #e5e1dd;
+  font-family: "Be Vietnam Pro", sans-serif;
 }
 
 .os-subtitle-text {
   color: #c2bbb5;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 .os-body-text {
