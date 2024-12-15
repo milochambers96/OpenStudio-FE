@@ -10,7 +10,9 @@ const ConcreteBackground = ({ children }: ConcreteBackgroundProps) => {
       style={{
         position: "relative",
         minHeight: "100vh",
+        minWidth: "100%",
         backgroundColor: "#404040",
+        overflow: "hidden",
       }}
     >
       <div
@@ -20,18 +22,23 @@ const ConcreteBackground = ({ children }: ConcreteBackgroundProps) => {
           left: 0,
           right: 0,
           bottom: 0,
-          width: "100vw",
-          height: "100vh",
+          width: "100%",
+          height: "100%",
           zIndex: 0,
           overflow: "hidden",
         }}
       >
         <svg
-          preserveAspectRatio="none"
+          preserveAspectRatio="xMidYMid slice"
           width="100%"
           height="100%"
-          viewBox="0 0 400 400"
+          viewBox="0 0 800 1200"
           xmlns="http://www.w3.org/2000/svg"
+          style={{
+            minWidth: "100%",
+            minHeight: "100%",
+            objectFit: "cover",
+          }}
         >
           <defs>
             {/* Base concrete texture */}
