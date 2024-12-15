@@ -52,7 +52,7 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
   }
 
   return (
-    <section className="section mt-4">
+    <section className="section mt-5">
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-11">
@@ -71,7 +71,7 @@ function SpecifcArtwork({ member }: { member: IMember | null }) {
                 <div className="columns is-centered artwork-columns is-equal-height">
                   {artwork && (
                     <div className="column is-5 is-flex">
-                      <div className="os-subcontent-bk is-flex is-flex-direction-column is-flex-grow-1">
+                      <div className="is-flex is-flex-direction-column is-flex-grow-1 mt-6">
                         <ImageCarousel images={imagesArray} />
                       </div>
                     </div>

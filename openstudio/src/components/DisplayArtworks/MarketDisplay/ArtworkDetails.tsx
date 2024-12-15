@@ -99,7 +99,7 @@ function ArtworkDetails({ artwork, member }: ArtworkDetailsProps) {
       </div>
       <div className="artwork-details-actions">
         {member?.user_type === "collector" && (
-          <div className="is-flex is-justify-content-space-around  is-align-items-center px-5">
+          <div className="is-flex is-justify-content-space-between  is-align-items-center px-5">
             {artwork?.is_for_sale ? (
               <PurchaseRequest
                 member={member}

@@ -1,9 +1,11 @@
 .custom-table {
   background-color: #54515b;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 .custom-table-row {
   background-color: #797580;
+  font-family: "Inter", sans-serif;
   transition: background-color 0.3s ease;
 }
 
