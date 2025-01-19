@@ -1,9 +1,14 @@
-# OpenStudio Frontend Platform
+<div align="right">
+<img src="https://github.com/user-attachments/assets/474f13ef-60d2-4086-88f0-30ca3e74db52" alt="GA Logo" width="80" height="auto" />
+</div>
+
+# OpenStudio
 
 ## Overview
 
-OpenStudio is an art marketplace that is built with a focus on eliminating traditional barriers between artists and collectors. The platform bridges the gap between artists and collectors, eliminating traditional gallery commission structures, creating a more equitable art economy. This frontend application, built with React and TypeScript, provides a platform for artists to showcase and sell their work and for collectors to discover and acquire unique pieces directly from creators.
+This was my fourth project during the software engineering bootcamp at General Assembly, London. The assignment was to develop a full-stack application with a Django backend and React frontend, incorporating modern web technologies and creating a comprehensive marketplace platform.
 
+OpenStudio is an art marketplace built with a focus on eliminating traditional barriers between artists and collectors. The platform bridges the gap between artists and collectors, removing traditional gallery commission structures to create a more equitable art economy. Built using React and TypeScript, this frontend application provides a platform for artists to showcase and sell their work and for collectors to discover and acquire unique pieces directly from creators.
 Developed in parallel with its [Django backend counterpart](https://github.com/milochambers96/OpenStudio-BE/), OpenStudio demonstrates the integration of multiple modern technologies to create a secure, user-centric marketplace experience.
 
 The live application can be found at [OpenStudio](https://openstudio.netlify.app/).
