@@ -1,14 +1,15 @@
 <div align="right">
-<img src="https://github.com/user-attachments/assets/474f13ef-60d2-4086-88f0-30ca3e74db52" alt="GA Logo" width="80" height="auto" />
+<img src="https://github.com/user-attachments/assets/9fba1ed7-2eb9-45ea-bd32-fba7d5ca0c67" alt="GA Logo" width="80" height="auto" />
 </div>
 
-# OpenStudio
+# OpenStudio Frontend Platform
 
 ## Overview
 
-This was my fourth project during the software engineering bootcamp at General Assembly, London. The assignment was to develop a full-stack application with a Django backend and React frontend, incorporating modern web technologies and creating a comprehensive marketplace platform.
+This was my fourth project during the software engineering bootcamp at General Assembly, London. The assignment was to solo build a full-stack application with a Django backend and React frontend over the course of one week. This project also marked my first exploration into Python, adding an exciting layer of learning to the development process.
 
 OpenStudio is an art marketplace built with a focus on eliminating traditional barriers between artists and collectors. The platform bridges the gap between artists and collectors, removing traditional gallery commission structures to create a more equitable art economy. Built using React and TypeScript, this frontend application provides a platform for artists to showcase and sell their work and for collectors to discover and acquire unique pieces directly from creators.
+
 Developed in parallel with its [Django backend counterpart](https://github.com/milochambers96/OpenStudio-BE/), OpenStudio demonstrates the integration of multiple modern technologies to create a secure, user-centric marketplace experience.
 
 The live application can be found at [OpenStudio](https://openstudio.netlify.app/).
@@ -223,7 +224,7 @@ function NavbarNotification() {
 }
 ```
 
-![Example of small red notification rendering on the navbar everytime an update happens to an order](/openstudio/src/assets/readme-images/Notification.png)
+![Example of small red notification rendering on the navbar everytime an update happens to an order](/src/assets/readme-images/Notification.png)
 
 ## User Features
 
@@ -266,7 +267,7 @@ function StudioProfile({ member }: { member: IMember | null }) {
 }
 ```
 
-| ![Example of an artist's studio](/openstudio/src/assets/readme-images/Artist-Studio.png) |
+| ![Example of an artist's studio](/src/assets/readme-images/Artist-Studio.png) |
 | :---------------------------------------------------------------------------: |
 |                        _Example of an artist's studio_                        |
 
@@ -301,7 +302,7 @@ function GalleryArtworks() {
 }
 ```
 
-| ![Example of a collector's gallery](/openstudio/src/assets/readme-images/Collectors-Gallery.png) |
+| ![Example of a collector's gallery](/src/assets/readme-images/Collectors-Gallery.png) |
 | :-----------------------------------------------------------------------------------: |
 |                          _Example of a collector's gallery_                           |
 
@@ -379,7 +380,7 @@ function ImageCarousel({ images }: ImageCarouselProps) {
 }
 ```
 
-| ![Example of image carousel](/openstudio/src/assets/readme-images/Image-cara.png) ![Example of image carousel](/openstudio/src/assets/readme-images/Image-cara-2.png) |
+| ![Example of image carousel](/src/assets/readme-images/Image-cara.png) ![Example of image carousel](/src/assets/readme-images/Image-cara-2.png) |
 | :---------------------------------------------------------------------------------------------------------------------------------------------: |
 |                           _Example of the image carousel, allowing artists to display multiple photos of their work_                            |
 
@@ -423,13 +424,13 @@ function OrdersTable({
 }
 ```
 
-| ![Example of an order table from an artist's perspective](/openstudio/src/assets/readme-images/Artist-order-table.png) |
+| ![Example of an order table from an artist's perspective](/src/assets/readme-images/Artist-order-table.png) |
 | :---------------------------------------------------------------------------------------------------------: |
 |                          _Example of an order table from an artist's perspective_                           |
 
-| ![Example of an order table from a collector's perspective](/openstudio/src/assets/readme-images/Collectors-order-table.png) |
+| ![Example of an order table from a collector's perspective](/src/assets/readme-images/Collectors-order-table.png) |
 | :---------------------------------------------------------------------------------------------------------------: |
-|                            _Example of an order table from a collector's perspective_                            |
+|                            _Example of an order table from an collector's perspective_                            |
 
 ### UK Shipping Calculator
 
@@ -474,7 +475,7 @@ export const calculateShippingCost = ({
 
 <div align="center">
 
-| ![Artwork price prior to shipping calculation](/openstudio/src/assets/readme-images/Artwork-preshipping.png) ![Artwork price post shipping calculation](/openstudio/src/assets/readme-images/Artwork-shipping.png) |
+| ![Artwork price prior to shipping calculation](/src/assets/readme-images/Artwork-preshipping.png) ![Artwork price post shipping calculation](/src/assets/readme-images/Artwork-shipping.png) |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                              _Example of shipping formulas impact on an artwork's final price_                                                               |
 
@@ -600,6 +601,51 @@ export const calculateShippingCost = ({
 - Value of clear feature prioritisation
 - Benefits of modular development approach
 - Impact of user-focused decision making
+
+# Post-Sprint Enhancements
+
+## December 2024
+
+### Responsive Design Improvements
+
+After the initial sprint, I took the time to ensure the application is fully responsive and optimised for mobile devices. By leveraging Bulma's utility classes, I was able to create a consistent and adaptive user experience across different screen sizes.
+
+The key changes made include:
+
+- Applying responsive layout classes (e.g., `is-desktop`, `is-touch`) to ensure proper scaling and element positioning on mobile and desktop.
+- Adjusting font sizes, padding, and margins to maintain readability and visual balance on smaller screens.
+- Optimising the image carousel and other visual components to provide an optimal viewing experience on mobile devices.
+
+### Industrial Gallery Design Implementation
+
+Inspired by the Tate Modern's Turbine Hall, I implemented a sophisticated SVG-based concrete texture and color scheme that transforms the application into an authentic gallery space. The design combines an industrial concrete aesthetic with careful attention to how artwork is displayed.
+
+The implementation features:
+
+- A dynamic SVG-based concrete texture using:
+  - Subtle base concrete pattern using fractal noise
+  - Realistic studio wear marks and paint splatters
+  - Paint drips and marks suggesting a working studio space
+- A refined color palette:
+  - Neutral #404040 concrete-inspired base
+  - Carefully balanced contrast for readability
+  - Minimalist approach that emphasizes artwork
+
+Technical implementation:
+
+```typescript
+// SVG-based concrete texture with studio effects
+const ConcreteBackground = ({ children }: ConcreteBackgroundProps) => {
+  return (
+    <div style={{ position: "relative", minHeight: "100vh" }}>
+      {/* SVG texture layer with concrete base and studio marks */}
+      {/* Content layer with proper z-index positioning */}
+    </div>
+  );
+};
+```
+
+This design update replaces the previous peach and blue gradient with an environment that better reflects the platform's artistic purpose (i.e. supporting modern and contemporary artwork), creating a more authentic gallery/studio experience while maintaining optimal functionality and user experience.
 
 # Deployment
 
